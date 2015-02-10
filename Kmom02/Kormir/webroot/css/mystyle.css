@@ -1,0 +1,186 @@
+/* import styles
+-------------------------------------------------------- 
+*/
+@import url("forms.css");
+@import url("table.css");
+
+/* general
+-------------------------------------------------------- 
+*/
+html,body{margin:0 auto; padding:0;}
+
+html {overflow-y: scroll;}
+html{background:#cfb8cc;}
+
+body{background:#caceb3; width:934px; border: 1px solid;}
+body{font-family:Georgia, serif; color:#2f2530;}
+
+h1{text-transform:uppercase;}
+h1,h2{border-bottom:1px solid #dddddd;}
+h4{
+-webkit-margin-before: 0.5em;
+-webkit-margin-after: 0.5em;
+}
+
+img {border:0;}
+
+/* html5 elements
+-------------------------------------------------------- 
+*/
+header,footer,nav,article,section,aside,figure,figcaption,output{display:block;}
+
+/* page structure
+-------------------------------------------------------- 
+
+	Layout and size of header, content and footer
+	
+*/
+/* the header with related links navigation */
+header#above{font-family:arial,helvetica,sans-serif; border-bottom:1px solid #E6E6E6; margin-bottom:4px;color:#000;}
+
+
+/* set width and center page */
+header#top,
+div#content,
+footer#bottom{margin:0 auto;width:90%;}
+
+/* add common padding to main content block */
+div#content{padding:1em 0 1em 0;}
+
+body, div#footer{  
+ -webkit-border-bottom-right-radius: 30px;
+ -webkit-border-bottom-left-radius: 30px;
+ -moz-border-radius-bottomright: 30px;
+ -moz-border-radius-bottomleft: 30px;
+ border-bottom-right-radius: 30px;
+ border-bottom-left-radius: 30px;
+}
+
+article{padding-bottom: 10px;width:80%;}
+aside{width:20%;}
+
+/* a links
+-------------------------------------------------------- 
+
+*/
+a {	color: inherit; outline:0;}
+a:link    { }
+a:visited { }
+a:hover   { text-decoration:none; color:#a16799; }
+a:active  { }
+
+/* navigation menu, login
+-------------------------------------------------------- 
+
+*/
+
+.navbar {background:#1D4060;border-bottom:1px solid #7FD7F7;padding:15px;}
+.navbar a {color:#FFFFFF;font:bold 12px Verdana;padding:15px;text-decoration:none;}
+.navbar a:hover {color:#FFFFFF;background:#31526F;}
+.navbar a.selected {	color:#FFFFFF;background:#31526F;}
+
+
+nav.navmenu {
+	font-family: arial;
+	font-weight: bold;
+	padding: 2px 8px;
+	background:#4a5247;
+	border:2px solid #2f2530;
+}
+nav.navmenu a {padding:6px 8px;text-decoration:none;border:2px solid transparent;color:#fff;}
+nav.navmenu a:hover {background:#a16799;border:2px solid #656565;opacity: 0.5;}
+
+nav.related {
+	padding: 0.2em 1em 0.3em 1em;
+	font-size:smaller;
+}
+
+nav.login {
+	padding: 0.2em 1em 0.3em 1em;
+	font-size:smaller;
+}
+nav.login {float:right;}
+
+
+
+/* Vänster navigationsmeny
+--------------------------------------------------------
+
+*/
+nav.vmenu ul,
+nav.vmenu ul ul {list-style:none;padding:0;margin:0;}
+	
+nav.vmenu ul ul li a{display:list-item;padding:2px 0px 2px 10px;}
+
+
+
+/* figure & figcaption
+-------------------------------------------------------- 
+
+*/
+figure {border:1px solid #E6E6E6;padding:4px;margin:1em;}
+figcaption {font-style:italic;font-size:smaller;}
+
+figure.left{margin-left:0;}
+figure.top{margin-top:0;}
+figure.fullwidth{margin-left:0;margin-right:0;}
+
+/* Misc classes
+-------------------------------------------------------- 
+
+*/
+.right {float:right;}
+.left {float:left;}
+
+
+/* clearer fix */
+div#content {overflow:auto;}
+
+/* Special cases
+--------------------------------------------------------
+
+*/
+
+div#visa {
+	background:#eee; 
+	border:1px solid #999;
+	padding:1em;
+}
+
+/* article byline & signature
+-------------------------------------------------------- 
+
+*/
+footer.byline {
+    clear: both;
+	border-top: 1px dashed #999999;
+	margin-top:2em;
+	margin:auto;
+	padding: 1em;
+	color: #555555;
+	font-size: smaller;
+	font-style:italic;
+}
+
+footer.byline img {padding:2px;outline:#999999 groove 1px;
+}
+
+/* page footer
+-------------------------------------------------------- 
+
+*/
+
+div#footer{padding-top:10px;padding-bottom:20px;background:#1D4060; color:#fff;text-align:center;font-size:80%;}
+
+footer#bottom {
+	font: italic 0.8em Arial, Helvetica, sans-serif;
+	color: #caceb3;
+}
+
+
+/* Display code in a block */
+blockquote.code {font-family:monospace;white-space:pre;background:#F2F2F2;
+margin-left:0;margin-right:0;padding-left:0.5em;
+border:1px solid #999;overflow:auto;
+}
+
