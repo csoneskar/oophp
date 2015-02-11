@@ -69,7 +69,7 @@ EOD;
  *
  */
 // $kormir['stylesheet'] = 'css/style.css';		// Use if only one style is needed
-$kormir['stylesheets']	= array('css/mystyle.css');		// Add more styles if needed
+$kormir['stylesheets']	= array('css/mystyle.css', 'css/diceCss.css');		// Add more styles if needed
 $kormir['favicon']    	= 'favicon.ico';
 
 
