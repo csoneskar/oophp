@@ -35,14 +35,16 @@ class CDiceHand {
 		for($i=0; $i < $this->numDices; $i++) {
 			$this ->roll = $this->dices[$i]->Roll(1, 0);
 			if ($this->roll == 1){
-				$string = $this->GetRollAsImageList();
+				$string = "<hr />";
+				$string .= $this->GetRollAsImageList();
 				$string .= "<p>Åh nej, det blev en etta. Dina poäng för denna rundan nollställs.</p>";
 				$string .= "<p>Din totala poäng är {$this->GetGreaterTotal()}</p>";
 				$this->sumRound = 0;
 			} else {
 				$this->sum += $this->roll;
 				$this->sumRound += $this->roll;
-				$string = $this->GetRollAsImageList();
+				$string = "<hr />";
+				$string .= $this->GetRollAsImageList();
 				$string .= "<p>Summan av detta kast är {$this->GetTotal()}</p>";
 				$string .= "<p>Summan av alla tärningskast i denna rundan är {$this->GetRoundTotal()}</p>";
 			}

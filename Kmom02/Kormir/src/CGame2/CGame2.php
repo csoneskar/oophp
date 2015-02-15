@@ -11,7 +11,8 @@ class CGame2 {
 	private $currentPlayer;
 	private $playersTotalScore;
 	private $playerName;
-	private $computerPlayer = 0;
+	private $computerPlayer;
+	private $didSomebodyWin;
 	
 	
 	/**
@@ -22,8 +23,9 @@ class CGame2 {
 	 */
 	public function __construct($numPlayers, $computerPlayer) {
 		$this->numPlayers = $numPlayers;
-		$this->currentPlayer = 1;
+		$this->currentPlayer = 0;
 		$this->computerPlayer = $computerPlayer;
+		$this->didSomebodyWin = 0;
 		// Create the object or get it from the session
 		if (isset($_SESSION['dicehand'])) {
 			$i = 0;
@@ -50,8 +52,9 @@ class CGame2 {
 			$this->players[$i]->SetSumRound(0);
 			$this->players[$i]->SetSumTotal(0);
 		}
-		$this->currentPlayer = 1;
-		return "<p>Ett nytt spel har startats. Värdena är nollställda.</p>";
+		$this->currentPlayer = 0;
+		$string = "<p>Ett nytt spel har startats. Värdena är nollställda.</p>";
+		return $string;
 	}
 	
 	/**
@@ -68,28 +71,6 @@ class CGame2 {
 			if ($this->computerPlayer == 1 && $this->currentPlayer == 1) {
 				//It is the computers turn
 				$string = $this->ComputerRoll();
-				/*
-				$string = $this->players[$this->currentPlayer]->Roll();
-				if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
-					$string .= "<p>Nu är det spelarens tur att kasta tärningen.</p>";
-				}
-				else {
-					$playAgain = rand(0,2);
-					while($playAgain == 1) { //If random get 1 roll again
-					$string .= "<p>Datorn slår igen</p>";
-					$string .= $this->players[$this->currentPlayer]->Roll();
-						if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
-							$string .= "<p>Nu är det spelarens tur att kasta tärningen.</p>";
-							return $string;
-							break;
-						} else {
-							$playAgain = rand(0,2);
-						}	
-					}
-					$string .= $this->Stop();
-					$string .= "<p>Datorn stannar, det är spelarens tur att kasta tärningen</p><br />";
-				}
-				*/
 			} else {
 				//It is the players turn
 				$string = $this->players[$this->currentPlayer]->Roll();
@@ -97,7 +78,7 @@ class CGame2 {
 					$string .= "<p>Nu är det motståndarens tur att kasta tärningen.</p>";
 					$this->currentPlayer = 1;
 					if ($this->computerPlayer == 1 && $this->currentPlayer == 1) {
-						$string = $this->ComputerRoll();
+						$string .= $this->ComputerRoll();
 					}
 				}
 				else {
@@ -109,7 +90,13 @@ class CGame2 {
 	}
 	
 	public function ComputerRoll() {
-		$string = $this->players[$this->currentPlayer]->Roll();
+		if($this->didSomebodyWin == 1) {
+			$string = null;
+			return $string;
+			break;
+		}
+		$string = "<p>Datorn kastar tärningen: </p>";
+		$string .= $this->players[$this->currentPlayer]->Roll();
 		if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
 			$string .= "<p>Nu är det spelarens tur att kasta tärningen.</p>";
 		}
@@ -126,8 +113,8 @@ class CGame2 {
 					$playAgain = rand(0,2);
 				}	
 			}
-			$string .= $this->Stop();
 			$string .= "<p>Datorn stannar, det är spelarens tur att kasta tärningen</p><br />";
+			$string .= $this->Stop();
 		}
 		return $string;
 	}
@@ -140,6 +127,10 @@ class CGame2 {
 	public function Stop() {
 		$sumTotal = $this->players[$this->currentPlayer]->Calculate();
 		$string = $this->Won($sumTotal);
+		if($this->currentPlayer == 0 && $this->computerPlayer == 1) {
+			$this->currentPlayer = 1;
+			$string .= $this->ComputerRoll();
+		}
 		return $string;
 	}
 	
@@ -150,22 +141,26 @@ class CGame2 {
 	 */
 	public function Won($sumTotal) {
 		$this->playerName = 1;
+		$who = $this->currentPlayer + 1;
 		if($sumTotal >= 100) {
-			$who = $this->currentPlayer + 1;
+			$this->didSomebodyWin = 1;
 			$this->GetPlayersTotalScore();
 			$string = "<p>GRATTIS spelare {$who} har vunnit!</p>";
-			$string .= "<p>Gällande ställning: ";
+			$string .= "<hr />";
+			$string .= "<p>Gällande ställning: <br />";
 			for ($i=0; $i < $this->numPlayers; $i++) {
 				$this->playerName += $i;
-				$string .= "Spelare {$this->playerName}: {$this->playersTotalScore[$i]} poäng</p>";
+				$string .= "Spelare {$this->playerName}: {$this->playersTotalScore[$i]} poäng <br />";
 			}
+			$string .= "</p>";
 		} else {
-			$string = "<p>Din totala poäng är {$sumTotal}</p>";
+			$string = "<p>Spelare {$who}'s totala poäng är {$sumTotal}</p>";
 			$this->GetPlayersTotalScore();
-			$string .= "<p>Gällande ställning: ";
+			$string .= "<hr />";
+			$string .= "<p>Gällande ställning: <br />";
 			for ($i=0; $i < $this->numPlayers; $i++) {
 				$this->playerName += $i;
-				$string .= "Spelare {$this->playerName}: {$this->playersTotalScore[$i]} poäng</p>";
+				$string .= "Spelare {$this->playerName}: {$this->playersTotalScore[$i]} poäng <br />";
 			}
 			$string .= "</p>";
 		}
