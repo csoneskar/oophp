@@ -11,19 +11,15 @@ class CGame2 {
 	private $currentPlayer;
 	private $playersTotalScore;
 	private $playerName;
-	private $computerPlayer = 0;
 	
 	
 	/**
 	 * Constructor - Creates a new hand
-	 * If playing against computer hand[1] aka player 2 is the computer
-	 * @param numPlayer int, how many players will play
-	 * @param computerPlayer int, set to 1 if playing against computer
+	 * 
 	 */
-	public function __construct($numPlayers, $computerPlayer) {
+	public function __construct($numPlayers) {
 		$this->numPlayers = $numPlayers;
 		$this->currentPlayer = 1;
-		$this->computerPlayer = $computerPlayer;
 		// Create the object or get it from the session
 		if (isset($_SESSION['dicehand'])) {
 			$i = 0;
@@ -59,75 +55,19 @@ class CGame2 {
 	 *@return string with information about your roll.
 	 */
 	public function Roll($player) {
-		$playAgain = 0;
 		if ($player > $this->numPlayers) {
 			$string = "<p>Detta spelet är bara för en spelare</p>";
 		}
 		else {
 			$this->currentPlayer = $player;
-			if ($this->computerPlayer == 1 && $this->currentPlayer == 1) {
-				//It is the computers turn
-				$string = $this->ComputerRoll();
-				/*
-				$string = $this->players[$this->currentPlayer]->Roll();
-				if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
-					$string .= "<p>Nu är det spelarens tur att kasta tärningen.</p>";
-				}
-				else {
-					$playAgain = rand(0,2);
-					while($playAgain == 1) { //If random get 1 roll again
-					$string .= "<p>Datorn slår igen</p>";
-					$string .= $this->players[$this->currentPlayer]->Roll();
-						if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
-							$string .= "<p>Nu är det spelarens tur att kasta tärningen.</p>";
-							return $string;
-							break;
-						} else {
-							$playAgain = rand(0,2);
-						}	
-					}
-					$string .= $this->Stop();
-					$string .= "<p>Datorn stannar, det är spelarens tur att kasta tärningen</p><br />";
-				}
-				*/
-			} else {
-				//It is the players turn
-				$string = $this->players[$this->currentPlayer]->Roll();
-				if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
-					$string .= "<p>Nu är det motståndarens tur att kasta tärningen.</p>";
-					$this->currentPlayer = 1;
-					if ($this->computerPlayer == 1 && $this->currentPlayer == 1) {
-						$string = $this->ComputerRoll();
-					}
-				}
-				else {
-					$string .= "<p>Det är din tur igen.</p>";
-				}
+			$string = $this->players[$this->currentPlayer]->Roll();
+			if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
+				
+				$string .= "<p>Nu är det motståndarens tur att kasta tärningen.</p>";
 			}
-		}
-		return $string;
-	}
-	
-	public function ComputerRoll() {
-		$string = $this->players[$this->currentPlayer]->Roll();
-		if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
-			$string .= "<p>Nu är det spelarens tur att kasta tärningen.</p>";
-		}
-		else {
-			$playAgain = rand(0,2);
-			while($playAgain == 1) { //If random get 1 roll again
-			$string .= "<p>Datorn slår igen</p>";
-			$string .= $this->players[$this->currentPlayer]->Roll();
-				if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
-					$string .= "<p>Nu är det spelarens tur att kasta tärningen.</p>";
-					return $string;
-					break;
-				} else {
-					$playAgain = rand(0,2);
-				}	
+			else {
+				$string .= "<p>Det är din tur igen.</p>";
 			}
-			$string .= $this->Stop();
-			$string .= "<p>Datorn stannar, det är spelarens tur att kasta tärningen</p><br />";
 		}
 		return $string;
 	}

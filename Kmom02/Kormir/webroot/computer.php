@@ -13,6 +13,8 @@ $kormir['title'] = "Tärningspelet 100";
 //Header in config file
 
 $string = null; 
+$numberOfPlayers = 2;
+$computerPlayer = 1;	//We are playing aginst the computer
  
 if(isset($_GET['destroy'])) {
 	//Unset all of the session variables.
@@ -30,7 +32,7 @@ if(isset($_GET['destroy'])) {
 
 	//Finally, destroy the session.
 	session_destroy();
-	echo "Sessionen raderas, <a href='?'>Starta om spelet</a>";
+	echo "Sessionen raderas, <a href='start.php'>Tillbaka till startsidan</a>";
 	exit;
 }
 
@@ -45,7 +47,7 @@ if (isset($_SESSION['game'])) {
 	$game = $_SESSION['game'];
 } else {
 	$string = "<p><i>Objektet finns inte i sessionen, skapar nytt objekt och lagrar det i sessionen</i></p>";
-	$game = new CGame2(2);
+	$game = new CGame2($numberOfPlayers, $computerPlayer);
 	$_SESSION['game'] = $game;
 }
 
@@ -63,13 +65,14 @@ else if($stop) {
 	$string = $game->Stop();
 }
 
+
 $kormir['main'] = <<<EOD
 <div id="content">       
-	<h1>Kasta en tärning och kom först till 100</h1>
+	<h1>Spela träningsspelet 100 med en vän</h1>
 	<article class="right">
-		<p>Det gäller att samla ihop poäng för att komma först till 100. I varje omgång kastar en spelare tärning tills hon väljer att stanna och 
-		spara poängen eller tills det dyker upp en 1:a och hon förlorar alla poäng som samlats in i rundan.</p>
-		<p><a href='?init'>Starta en ny runda </a>|<a href='?roll1'> Spelare 1 gör ett nytt kast </a>|<a href='?roll2'> Spelare 2 gör ett nytt kast </a>|<a href='?stop'> Stanna och spara poängen </a>|<a href='?destroy'> Avsluta spelet </a></p>
+		<p>Spelare 1 börjar med att kasta tärningen och fortsätter tills han vill spara sina poäng eller får en etta och förlorar alla poäng i denna rundan. Nästa gång så kastar spelare två sin tärning. Turas om så tills någon når 100 poäng.</p>
+		<p>Ni kan påbörja en ny runda genom att välja 'Starta ny runda' eller gå tillbaka till starten genom att välja 'Avsluta spelet'.</p>
+		<p><a href='?roll1'> Spelare 1 gör ett nytt kast </a>|<a href='?roll2'> Spelare 2 gör ett nytt kast </a>|<a href='?stop'> Stanna och spara poängen </a></p><p><a href='?init'>Starta en ny runda </a>| <a href='?destroy'> Avsluta spelet </a></p>
 		<hr />
 		<p><strong>{$string}</strong></p>
 		

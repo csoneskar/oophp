@@ -3,27 +3,21 @@
  * A hand og dices, with graphical representation, to roll.
  *
  */
-class CDiceHand {
+class CComputerDiceHand extends CDiceHand {
 	//Properties
-	private $dices;		//Array with object of type CDiceImage
-	private $numDices;	//Number of dices to roll
-	private $sum;		//Sum of all dices
-	private $sumRound;	//Sum of all rounds
-	private $sumTotal;	//The greater sum for the player
-	private $roll;		//What was the face of the dice?
+//	private $dices;		//Array with object of type CDiceImage
+//	private $numDices;	//Number of dices to roll
+//	private $sum;		//Sum of all dices
+//	private $sumRound;	//Sum of all rounds
+//	private $sumTotal;	//The greater sum for the player
+//	private $roll;		//What was the face of the dice?
 	
 	/**
 	 * Constructor
 	 * @param int $numDices, the number of dices in the hand, defaults to five dices.
 	 */
 	public function __construct($numDices = 5) {
-		for($i=0; $i < $numDices; $i++) {
-			$this->dices[] = new CDiceImage();
-		}
-		$this->numDices = $numDices;
-		$this->sum = 0;
-		$this->sumRound = 0;
-		$this->sumTotal = 0;
+		parent::__construct();
 	}
 	
 	/**
@@ -45,11 +39,25 @@ class CDiceHand {
 				$string = $this->GetRollAsImageList();
 				$string .= "<p>Summan av detta kast är {$this->GetTotal()}</p>";
 				$string .= "<p>Summan av alla tärningskast i denna rundan är {$this->GetRoundTotal()}</p>";
+				$this->PlayAgin();
 			}
 		}
 		return $string;
-	}
 
+	}
+	
+	public function PlayAgain() {
+		//Should I stop and save?
+		$again = rand(0,1);
+		if($again == 1) {
+			$this->Roll();
+		}
+		else {
+			echo "Nu borde det vara spelaren tur...";
+			
+		}
+	}
+	
 	public function GetRoll() {
 		return $this->roll;
 	}
