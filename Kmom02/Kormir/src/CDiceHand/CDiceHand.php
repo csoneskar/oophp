@@ -52,6 +52,10 @@ class CDiceHand {
 		return $string;
 	}
 
+	/**
+	 * Get the face og the latest roll made.
+	 * @return int roll, the face of the latest roll made.
+	 */
 	public function GetRoll() {
 		return $this->roll;
 	}
@@ -66,7 +70,7 @@ class CDiceHand {
 	}
 	
 	/**
-	 *  Set the sum for the round
+	 * Set the sum for the round
 	 *
 	 */
 	public function SetSumRound($sum) {

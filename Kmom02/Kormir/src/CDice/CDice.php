@@ -3,7 +3,7 @@
  * A CDise class to play around with a dice
  *
  */
- class CDice2 {
+ class CDice {
 	//properties
 	protected $rolls = array();
 	private $faces;

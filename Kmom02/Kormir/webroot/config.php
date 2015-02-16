@@ -54,7 +54,7 @@ $kormir['header'] = <<<EOD
 EOD;
 
 $kormir['footer'] = <<<EOD
-<footer><span class='sitefooter'>Copyright (c) Cecilia Soneskär | <a href='http://validator.w3.org/unicorn/check?ucn_uri=referer&amp;ucn_task=conformance'>Unicorn</a></span></footer>
+<footer><span class='sitefooter'>Copyright (c) Cecilia Soneskär | <a href='https://github.com/csoneskar/oophp'>Projektet i GitHub</a> | <a href='http://validator.w3.org/unicorn/check?ucn_uri=referer&amp;ucn_task=conformance'>Unicorn</a></span></footer>
 EOD;
 
 $kormir['byline'] = <<<EOD
@@ -84,6 +84,7 @@ $kormir['menu']
 		'items' => array(
 					'me'  => array('text'=>'Me',  'url'=>'me.php', 'class'=>null),
 					'report'  => array('text'=>'Report',  'url'=>'report.php', 'class'=>null),
+					'roll' => array('text'=>'Roll dice', 'url'=>'start.php', 'class'=>null),
 					'source' => array('text'=>'Source', 'url'=>'source.php', 'class'=>null),
 		),
 	);

@@ -15,6 +15,27 @@ $kormir['title'] = "Redovisning";
 $kormir['main'] = <<<EOD
 <div id="content">   
 	<h1>Redovisning av kursmomenten</h1>
+		<article class="right">
+		<h2>oophp02: Objektorienterad programmering i PHP</h2>
+			<p>Grunderna för objektorientering och klasser, konstruktor, funktioner och arv kunde jag sedan tidigare studier av Java, men det
+			behövdes verkligen en repetition av syntaxen och de finare detaljerna. Jag jobbade igenom oophp20-guiden grundligt och la lite extra tid här för att verkligen förstå allting.
+			Även om jag kan grunderna och har en förståelse för konceptet med objektorientering så har jag svårt att avgöra när jag ska göra en ny klass, vilka klasser som behövs, 
+			när det bör vara ett arv och vilka funktioner jag bör stoppa i vilken klass. Antagligen skulle en erfaren programmerare tycka att min kod är aningens rörig, 
+			men här har jag iaf gjort ett seriöst försök att strukturera upp tankarna runt uppgiften.</p>
+			<p>Jag tänkte först göra båda uppgifterna, men extrauppgifterna på tärningsspelet tog längre tid än jag trodde de skulle göra, så i slutet blev det bara tärningsuppgiften som är gjord.</p>
+			<p>Jag utgick från övningsuppgifterna och byggde vidare på CDiceHand klassen. Mina klassfiler ligger under src i Kormir. Jag la till kontroller för om tärningskastet var en etta eller inte. Jag inser nu när jag skriver detta att
+			de kontrollerna kanske borde placeras i min CGame klass som har hand om de andra spelreglerna och använda mig av get och set funktioner istället.</p>
+			<p>Som sagt, jag har en CGame klass som har hand om själva spelet. Det är denna som anropas från mina sidkontroller. CGame har hand om spelarna, hur många de är och ifall någon av dem är en datorspelare.
+			Jag har i uppgiften satt antalet spelare till max 2, men koden är byggd för att det ska gå att bygga ut relativt lätt då antalet spelare är en parameter in till CGame. Det som är hårdkodat är att
+			när man spelar mot datorn så är det bara du och datorn som spelar.</p>
+			<p>Jag har upptäckt att jag har väldigt lätt att snurra in mig i djupa if-else satser, kanske inget fel i sig men det blir knepigt att följa koden. Jag har försökt bryta upp detta lite genom att
+			flytta funktionalitet till funktioner istället. Det blir iaf lite mer läsbart och inte samma kod på flera ställen. Överhuvudtaget så verkar jag krångla till saker för när jag sedan kommer på hur man ska göra så
+			upplever jag det ibland som väldigt lätt (Varför tänkte jag inte så från början!). Jag hade bland annat stora problem att greppa hur jag skulle göra med dator-spelaren för att få den att automatisk 
+			slå tärningen vid olika tillfällen, och provade allt från komplicerade if-else satser, arv och egen klass, men landade till slut på att bara lägga den funktionaliteten i en egen funktion.</p>
+			<p>Jag gjorde en liten klass, ASide, för att hantera sidomenyn där man väljer vilket typ av spel man ska starta. Återanvändning från intro kursen i php, men objektiferad.</p>
+			<p>Trots att det tagit många timmar och kanske inte är så bra strukturerat så är jag ändå väldigt nöjd över mitt program. Man kan ju faktiskt spela tärningspelet och funktionerna för extrauppgifterna är med.
+			Man kan väl säga att jag har löst uppgiften på mitt egna vis :)</p>
+	</article>
 	<article class="right">
 		<h2>oophp01: Programmering i PHP</h2>
 			<p>Det var bra att gå igenom guiden för att komma igång med PHP eftersom det blev en trevlig upprepning på det jag lärt mig

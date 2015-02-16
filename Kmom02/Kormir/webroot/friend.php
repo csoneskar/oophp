@@ -47,7 +47,7 @@ if (isset($_SESSION['game'])) {
 	$game = $_SESSION['game'];
 } else {
 	$string = "<p><i>Objektet finns inte i sessionen, skapar nytt objekt och lagrar det i sessionen</i></p>";
-	$game = new CGame2($numberOfPlayers, $computerPlayer);
+	$game = new CGame($numberOfPlayers, $computerPlayer);
 	$_SESSION['game'] = $game;
 }
 

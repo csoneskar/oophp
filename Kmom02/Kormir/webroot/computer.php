@@ -47,7 +47,7 @@ if (isset($_SESSION['game'])) {
 	$game = $_SESSION['game'];
 } else {
 	$string = "<p><i>Objektet finns inte i sessionen, skapar nytt objekt och lagrar det i sessionen</i></p>";
-	$game = new CGame2($numberOfPlayers, $computerPlayer);
+	$game = new CGame($numberOfPlayers, $computerPlayer);
 	$_SESSION['game'] = $game;
 }
 
@@ -70,9 +70,10 @@ $kormir['main'] = <<<EOD
 <div id="content">       
 	<h1>Spela träningsspelet 100 med en vän</h1>
 	<article class="right">
-		<p>Spelare 1 börjar med att kasta tärningen och fortsätter tills han vill spara sina poäng eller får en etta och förlorar alla poäng i denna rundan. Nästa gång så kastar spelare två sin tärning. Turas om så tills någon når 100 poäng.</p>
-		<p>Ni kan påbörja en ny runda genom att välja 'Starta ny runda' eller gå tillbaka till starten genom att välja 'Avsluta spelet'.</p>
-		<p><a href='?roll1'> Spelare 1 gör ett nytt kast </a>|<a href='?roll2'> Spelare 2 gör ett nytt kast </a>|<a href='?stop'> Stanna och spara poängen </a></p><p><a href='?init'>Starta en ny runda </a>| <a href='?destroy'> Avsluta spelet </a></p>
+		<p>Du börjar med att kasta tärningen och fortsätter tills du vill spara dina poäng eller får en etta och förlorar alla poäng i denna rundan. Nästa gång så kastar datorn sin tärning. 
+		Datorn kommer slumpvis kasta tärningen eller välja att stanna. När datorn stannar så är det din tur att kasta tärningen. Turas om så tills någon når 100 poäng.</p>
+		<p>Du kan påbörja en ny runda genom att välja 'Starta ny runda' eller gå tillbaka till starten genom att välja 'Avsluta spelet'.</p>
+		<p><a href='?roll1'> Gör ett nytt kast </a>|<a href='?stop'> Stanna och spara poängen </a></p><p><a href='?init'>Starta en ny runda </a>| <a href='?destroy'> Avsluta spelet </a></p>
 		<hr />
 		<p><strong>{$string}</strong></p>
 		

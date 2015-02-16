@@ -3,7 +3,7 @@
  * A dice with images as graphical representation
  *
  */
-class CDiceImage extends CDice2 {
+class CDiceImage extends CDice {
 	/**
 	 * Properties
 	 *

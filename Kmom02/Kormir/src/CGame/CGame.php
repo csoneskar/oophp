@@ -3,7 +3,7 @@
  * A game.
  *
  */
-class CGame2 {
+class CGame {
 	
 	//private $hand;
 	private $numPlayers;
@@ -17,7 +17,7 @@ class CGame2 {
 	
 	/**
 	 * Constructor - Creates a new hand
-	 * If playing against computer hand[1] aka player 2 is the computer
+	 * If playing against computer, hand[1] aka player 2 is the computer
 	 * @param numPlayer int, how many players will play
 	 * @param computerPlayer int, set to 1 if playing against computer
 	 */
@@ -44,7 +44,7 @@ class CGame2 {
 	}
 	
 	/**
-	 * Init the round.
+	 * Init the round. Set all values to default.
 	 *@return string about init
 	 */
 	public function InitRound() {
@@ -53,12 +53,13 @@ class CGame2 {
 			$this->players[$i]->SetSumTotal(0);
 		}
 		$this->currentPlayer = 0;
+		$this->didSomebodyWin = 0;
 		$string = "<p>Ett nytt spel har startats. Värdena är nollställda.</p>";
 		return $string;
 	}
 	
 	/**
-	 * Roll a dice
+	 * Roll a dice, keeps control of player turn.
 	 *@return string with information about your roll.
 	 */
 	public function Roll($player) {
@@ -89,12 +90,20 @@ class CGame2 {
 		return $string;
 	}
 	
+	/**
+	 * To handle the computers automatic rolls. 
+	 * A random variable decides if to roll again or stop and save points. 
+	 * It is a 66% chance that the computer continues rolling.
+	 * @return string with result from the rolls.
+	 */
 	public function ComputerRoll() {
+		//Make sure the computer stops if someone won.
 		if($this->didSomebodyWin == 1) {
 			$string = null;
 			return $string;
 			break;
 		}
+		//Always do one roll
 		$string = "<p>Datorn kastar tärningen: </p>";
 		$string .= $this->players[$this->currentPlayer]->Roll();
 		if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
@@ -102,10 +111,10 @@ class CGame2 {
 		}
 		else {
 			$playAgain = rand(0,2);
-			while($playAgain == 1) { //If random get 1 roll again
+			while($playAgain >= 1) { //If random is 1 or higher roll again.
 			$string .= "<p>Datorn slår igen</p>";
 			$string .= $this->players[$this->currentPlayer]->Roll();
-				if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) {
+				if($this->numPlayers > 1 && ($this->players[$this->currentPlayer]->GetRoll() == 1)) { //If the face of the dice shows 1, stop and let the player roll.
 					$string .= "<p>Nu är det spelarens tur att kasta tärningen.</p>";
 					return $string;
 					break;
@@ -113,6 +122,7 @@ class CGame2 {
 					$playAgain = rand(0,2);
 				}	
 			}
+			//If random is 0, stop playing
 			$string .= "<p>Datorn stannar, det är spelarens tur att kasta tärningen</p><br />";
 			$string .= $this->Stop();
 		}
@@ -144,7 +154,7 @@ class CGame2 {
 		$who = $this->currentPlayer + 1;
 		if($sumTotal >= 100) {
 			$this->didSomebodyWin = 1;
-			$this->GetPlayersTotalScore();
+			$this->SetPlayersTotalScore();
 			$string = "<p>GRATTIS spelare {$who} har vunnit!</p>";
 			$string .= "<hr />";
 			$string .= "<p>Gällande ställning: <br />";
@@ -155,7 +165,7 @@ class CGame2 {
 			$string .= "</p>";
 		} else {
 			$string = "<p>Spelare {$who}'s totala poäng är {$sumTotal}</p>";
-			$this->GetPlayersTotalScore();
+			$this->SetPlayersTotalScore();
 			$string .= "<hr />";
 			$string .= "<p>Gällande ställning: <br />";
 			for ($i=0; $i < $this->numPlayers; $i++) {
@@ -167,12 +177,15 @@ class CGame2 {
 		return $string;
 	}
 	
-	public function GetPlayersTotalScore() {
+	/**
+	 * A function to set the players total score
+	 *
+	 */
+	public function SetPlayersTotalScore() {
 		$i = 0;
 		while($i < $this->numPlayers) {
 			$this->playersTotalScore[$i] = $this->players[$i]->GetGreaterTotal();
 			$i++;
 		}
 	}
-	
 }

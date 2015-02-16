@@ -14,8 +14,6 @@ $kormir['title'] = "Tärningsspelet 100";
 
 $menu = null; 
 
-$pageId = "start";
-
 // Check if the url contains a querystring with a page-part.
 $p = null;
 if(isset($_GET["p"])) 
@@ -24,7 +22,6 @@ if(isset($_GET["p"]))
 }
 
 // is the page known?
-$path = "";
 $file = null;
 switch ($p) {
 	case "alone":
@@ -32,14 +29,13 @@ switch ($p) {
 	break;
 	case "friend":
 		$file 	= "test4.php";
-		echo "Here we are";
 	break;
 	case "computer":
 		$file 	= "test5.php";
 	break;
 }
 
-
+//Creating an object of the aside menu class
 $aside = new CAside($p);
 $menu = $aside->printMenu();
 
