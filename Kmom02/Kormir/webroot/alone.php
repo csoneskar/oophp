@@ -70,7 +70,7 @@ $kormir['main'] = <<<EOD
 		<p>Du kan påbörja en ny runda genom att välja 'Starta ny runda' eller gå tillbaka till starten genom att välja 'Avsluta spelet'.</p>
 		<p><a href='?roll1'> Kasta tärningen </a>|<a href='?stop'> Spara poäng </a></p><p><a href='?init'>Starta en ny runda </a>| <a href='?destroy'> Avsluta spelet </a></p>
 		<hr>
-		<strong>{$string}</strong>
+		{$string}
 		
 	</article>	  
 </div>
