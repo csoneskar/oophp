@@ -74,7 +74,7 @@ $kormir['main'] = <<<EOD
 		<p>Ni kan påbörja en ny runda genom att välja 'Starta ny runda' eller gå tillbaka till starten genom att välja 'Avsluta spelet'.</p>
 		<p><a href='?roll1'> Spelare 1 gör ett nytt kast </a>|<a href='?roll2'> Spelare 2 gör ett nytt kast </a>|<a href='?stop'> Stanna och spara poängen </a></p><p><a href='?init'>Starta en ny runda </a>| <a href='?destroy'> Avsluta spelet </a></p>
 		<hr>
-		<p><strong>{$string}</strong></p>
+		<strong>{$string}</strong>
 		
 	</article>	  
 </div>
