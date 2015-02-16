@@ -43,7 +43,7 @@ class CDiceHand {
 			} else {
 				$this->sum += $this->roll;
 				$this->sumRound += $this->roll;
-				$string = "<hr />";
+				$string = "<hr>";
 				$string .= $this->GetRollAsImageList();
 				$string .= "<p>Summan av detta kast är {$this->GetTotal()}</p>";
 				$string .= "<p>Summan av alla tärningskast i denna rundan är {$this->GetRoundTotal()}</p>";

@@ -73,7 +73,7 @@ $kormir['main'] = <<<EOD
 		<p>Spelare 1 börjar med att kasta tärningen och fortsätter tills han vill spara sina poäng eller får en etta och förlorar alla poäng i denna rundan. Nästa gång så kastar spelare två sin tärning. Turas om så tills någon når 100 poäng.</p>
 		<p>Ni kan påbörja en ny runda genom att välja 'Starta ny runda' eller gå tillbaka till starten genom att välja 'Avsluta spelet'.</p>
 		<p><a href='?roll1'> Spelare 1 gör ett nytt kast </a>|<a href='?roll2'> Spelare 2 gör ett nytt kast </a>|<a href='?stop'> Stanna och spara poängen </a></p><p><a href='?init'>Starta en ny runda </a>| <a href='?destroy'> Avsluta spelet </a></p>
-		<hr />
+		<hr>
 		<p><strong>{$string}</strong></p>
 		
 	</article>	  

@@ -69,7 +69,7 @@ $kormir['main'] = <<<EOD
 		<p>Kasta träningen så många gånger du vill. Får du en etta så nollställs de poäng du spelat ihop i denna rundan. Du kan spara undan poäng genom att klicka på 'Spara poäng' närsom under spelets gång.</p>
 		<p>Du kan påbörja en ny runda genom att välja 'Starta ny runda' eller gå tillbaka till starten genom att välja 'Avsluta spelet'.</p>
 		<p><a href='?roll1'> Kasta tärningen </a>|<a href='?stop'> Spara poäng </a></p><p><a href='?init'>Starta en ny runda </a>| <a href='?destroy'> Avsluta spelet </a></p>
-		<hr />
+		<hr>
 		<p><strong>{$string}</strong></p>
 		
 	</article>	  

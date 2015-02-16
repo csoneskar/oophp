@@ -123,7 +123,7 @@ class CGame {
 				}	
 			}
 			//If random is 0, stop playing
-			$string .= "<p>Datorn stannar, det är spelarens tur att kasta tärningen</p><br />";
+			$string .= "<p>Datorn stannar, det är spelarens tur att kasta tärningen</p><br>";
 			$string .= $this->Stop();
 		}
 		return $string;
@@ -156,21 +156,21 @@ class CGame {
 			$this->didSomebodyWin = 1;
 			$this->SetPlayersTotalScore();
 			$string = "<p>GRATTIS spelare {$who} har vunnit!</p>";
-			$string .= "<hr />";
-			$string .= "<p>Gällande ställning: <br />";
+			$string .= "<hr>";
+			$string .= "<p>Gällande ställning: <br>";
 			for ($i=0; $i < $this->numPlayers; $i++) {
 				$this->playerName += $i;
-				$string .= "Spelare {$this->playerName}: {$this->playersTotalScore[$i]} poäng <br />";
+				$string .= "Spelare {$this->playerName}: {$this->playersTotalScore[$i]} poäng <br>";
 			}
 			$string .= "</p>";
 		} else {
 			$string = "<p>Spelare {$who}'s totala poäng är {$sumTotal}</p>";
 			$this->SetPlayersTotalScore();
-			$string .= "<hr />";
-			$string .= "<p>Gällande ställning: <br />";
+			$string .= "<hr>";
+			$string .= "<p>Gällande ställning: <br>";
 			for ($i=0; $i < $this->numPlayers; $i++) {
 				$this->playerName += $i;
-				$string .= "Spelare {$this->playerName}: {$this->playersTotalScore[$i]} poäng <br />";
+				$string .= "Spelare {$this->playerName}: {$this->playersTotalScore[$i]} poäng <br>";
 			}
 			$string .= "</p>";
 		}

@@ -6,8 +6,11 @@ class CAside {
 	private $id;
 	
 	public function __construct($p) {
-		$this->p = $p;
-		$this->id = "id='".strip_tags($p)."'";
+		$this->id = null;
+		if(isset($p)) {
+			$this->p = $p;
+			$this->id = "id='".strip_tags($p)."'";
+		}
 	}
 	
 	public function printMenu() {
