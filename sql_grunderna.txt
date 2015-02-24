@@ -1,0 +1,151 @@
+-- Skapa ny databas
+CREATE DATABASE Skolan;
+
+-- Ange vilket sätt som tabellerna skall lagras på
+CREATE TABLE t1 (i INT) ENGINE = MYISAM;
+CREATE TABLE t2 (i INT) ENGINE = INNODB;
+-- Bestäm teckenkodning till UTF-8 på kommunikation mellan klient och server
+SET NAMES 'utf8';
+
+-- Väj vilken databas du vill använda
+USE Skolan;
+
+-- Radera en databas
+DROP DATABASE Skolan;
+
+-- Skapa en tabell
+CREATE TABLE Larare
+(
+akronymLarare CHAR(3) PRIMARY KEY,
+avdelningLarare CHAR(3),
+namnLarare CHAR(20),
+lonLarare INT,
+foddLarare DATETIME
+);
+
+-- Ange teckenkodning för en tabell
+CREATE TABLE t1 (i INT) CHARACTER SET utf8;
+CREATE TABLE t2 (i INT) ENGINE = INNODB CHARACTER SET utf8;
+
+-- Radera tabellen
+DROP TABLE Larare;
+
+-- Välj allt innehål från tabellen
+SELECT * FROM Larare;
+
+-- Lägg till rader i tabellen Lärare
+INSERT INTO Larare VALUES ('ANY', 'DAT', 'Anna Nyhammar', 20000, '1977-07-24');
+INSERT INTO Larare VALUES ('LLA', 'DAT', 'Lars Larsson', 20000, '1969-05-30');
+INSERT INTO Larare VALUES ('JFI', 'MIL', 'Johan Finn', 20000, '1980-12-24');
+INSERT INTO Larare VALUES ('KLÄ', 'MIL', 'Klara Lärka', 20000, '1981-03-01');
+INSERT INTO Larare VALUES ('MPE', 'DAT', 'Milla von Penn', 20000, '1947-08-15');
+INSERT INTO Larare VALUES ('HNI', 'DAT', 'Harald Nilsson', 20000, '1963-09-16');
+INSERT INTO Larare VALUES ('OSS', 'MIL', 'Ossy Osbourne', 20000, '1940-07-24');
+INSERT INTO Larare VALUES ('JWR', 'DAT', 'Jessica Wren', 20000, '1973-02-02');
+INSERT INTO Larare VALUES ('LRU', 'MIL', 'Lisa Rund', 20000, '1982-11-04');
+INSERT INTO Larare VALUES ('JNA', 'DAT', 'Jonas Nasty', 20000, '1976-07-14');
+-- OBS!!! Använd hela kolumnlistan!
+INSERT INTO Larare(akronymLarare, avdelningLarare, namnLarare, lonLarare, foddLarare) VALUES ('MOS', 'APS', 'Mikael', 15000, '1968-03-07');
+
+-- Välj innehåll efter kriteria
+SELECT * FROM Larare WHERE avdelningLarare='MIL';
+SELECT * FROM Larare WHERE akronymLarare LIKE 'M%';
+SELECT * FROM Larare WHERE namnLarare LIKE '%a%';
+SELECT * FROM Larare WHERE lonLarare >= 22000;
+SELECT * FROM Larare WHERE lonLarare >=22000 AND kompetensLarare > 7; 
+SELECT * FROM Larare WHERE akronymLarare IN ('OSS', 'ANY');
+SELECT namnLarare, lonLarare FROM Larare ORDER BY namnLarare DESC LIMIT 3;
+-- Byt namn på en kolumn (alias)
+SELECT namnLarare AS Namn, lonLarare AS Lön FROM Larare;
+-- Minsta lönen en lärare har
+SELECT MIN(lonLarare) FROM Larare;
+-- Gruppera och räkna ut
+SELECT avdelningLarare AS Avdelning, COUNT(*) AS Summa FROM Larare GROUP BY avdelningLarare;
+SELECT avdelningLarare AS Avdelning, AVG(lonLarare) AS Summa FROM Larare GROUP BY avdelningLarare;
+SELECT avdelningLarare AS Avdelning, SUM(lonLarare) AS Summa FROM Larare GROUP BY avdelningLarare;
+-- Visa endast de avdelningar där snittlönen är över 22000
+SELECT avdelningLarare AS Avdelning, AVG(lonLarare) AS Medellön FROM Larare GROUP BY avdelningLarare HAVING AVG(lonLarare) > 22000;
+-- Visa endast de vanligaste lönerna
+SELECT lonLarare, COUNT(lonLarare) AS Antal FROM Larare GROUP BY lonLarare HAVING COUNT(lonLarare) > 1;
+-- Concatenate strängar
+SELECT LOWER(CONCAT_WS('/', avdelningLarare, akronymLarare)) FROM Larare;
+
+-- Ta bort en rad från tabellen
+DELETE FROM Larare WHERE namnLarare = 'Harald Nilsson';
+DELETE FROM Larare WHERE avdelningLarare = 'MIL';
+DELETE FROM Larare LIMIT 2;
+DELETE FROM Larare;
+
+-- Ändra befintlig tabell
+ALTER TABLE Larare ADD COLUMN kompetensLarare INT DEFAULT 5 NOT NULL;
+ALTER TABLE Larare DROP kompetensLarare;
+
+-- Uppdatera ett värde
+UPDATE Larare SET namnLarare = 'Charles Claesson' WHERE akronymLarare = 'HNI';
+UPDATE Larare SET lonLarare = 21000, kompetensLarare = 7 WHERE akronymLarare = 'CCA';
+-- Alla får en löneökning på 10%
+UPDATE Larare SET lonLarare = lonLarare * 1.1;
+
+-- Datum och tid
+SELECT CURDATE() AS 'todays date';
+-- Dagens datum och tid i samma kolumn
+SELECT NOW();
+SELECT NOW(), namnLarare AS 'Namn', YEAR(foddLarare) AS 'Född' FROM Larare;
+-- Hur gamla är lärarna
+SELECT FLOOR(DATEDIFF(CURDATE(), foddLarare)/365) AS 'Ålder' FROM Larare;
+
+-- Vyer
+CREATE VIEW åldersvy (Namn, Ålder) AS
+	SELECT namnLarare AS 'Namn', FLOOR(DATEDIFF(CURDATE(), foddLarare)/365) FROM Larare ORDER BY foddLarare DESC;
+SELECT AVG(Ålder) FROM åldersvy;
+DROP VIEW åldersvy;
+
+-- Skapa vy från flera tabeller
+CREATE VIEW VLarare2 AS
+	SELECT larare.*, åldersvy.Ålder FROM larare, åldersvy WHERE larare.namnLarare = åldersvy.Namn;
+SELECT avdelningLarare AS Avdelning, ROUND(AVG(lonLarare)) AS Medellön, ROUND(AVG(Ålder)) AS Medelålder FROM VLarare2 GROUP BY avdelningLarare;
+CREATE VIEW VAvdelningsRapport AS
+	SELECT avdelningLarare AS Avdelning, ROUND(AVG(lonLarare)) AS Medellön, ROUND(AVG(Ålder)) AS Medelålder FROM VLarare2 GROUP BY avdelningLarare;
+	
+-- Uppdatera tabell
+ALTER TABLE Kurstillfalle ADD FOREIGN KEY (Kurstillfalle_kodKurs) REFERENCES Kurs(kodKurs);
+ALTER TABLE Kurstillfalle ADD FOREIGN KEY (Kurstillfalle_akronymLarare) REFERENCES larare(akronymLarare);
+-- Visa hur tabellen ser ut
+DESCRIBE Kurstillfalle;
+
+-- Joina två tabeller med SELECT satser
+SELECT * FROM Kurs, Kurstillfalle WHERE kurs.kodKurs = Kurstillfalle.Kurstillfalle_kodKurs;
+
+CREATE VIEW VKurstillfallen AS
+	SELECT * FROM Kurs, Kurstillfalle WHERE kurs.kodKurs = Kurstillfalle.Kurstillfalle_kodKurs;
+	
+CREATE VIEW kursinfo AS
+	SELECT * FROM VLarare2, VKurstillfallen AS kt WHERE kt.Kurstillfalle_akronymLarare = VLarare2.akronymLarare;
+
+-- Joina tabeller med JOIN
+SELECT K.KodKurs AS Kurskod, K.namnKurs AS Kursnamn, Kt.lasperiodKurstillfalle AS Läsperiod,
+CONCAT_WS('-', L.namnLarare, L.akronymLarare) AS Kursansvarig
+FROM Kurstillfalle AS Kt
+INNER JOIN Kurs AS K
+	ON Kt.Kurstillfalle_kodKurs = K.kodKurs
+INNER JOIN Larare AS L
+	ON Kt.Kurstillfalle_akronymLarare = L.akronymLarare
+ORDER BY K.kodKurs;
+
+SELECT AVG(Ålder) FROM kursinfo WHERE kodKurs = 'PA1106';
+SELECT AVG(Ålder) FROM (SELECT DISTINCT Ålder FROM kursinfo WHERE kodKurs LIKE 'DV%') AS tempname;
+
+CREATE VIEW VAntalKATillfallen
+AS
+SELECT akronymLarare, COUNT(akronymLarare) AS Antal
+FROM Kursinfo GROUP BY akronymLarare;
+SELECT * FROM VAntalKATillfallen WHERE Antal = (SELECT MIN(Antal) FROM VAntalKATillfallen);
+
+
+-- Använd outer join för att visa resutatet för alla rader, även om det inte finns någon rad att länka till.
+-- Right och Left hänvisar till vilken tabell som är till höger och vänster...
+SELECT K.kodKurs AS Kurskod, K.namnKurs AS Kursnamn, Kt.lasperiodKurstillfalle AS Läsperiod
+FROM Kurstillfalle AS Kt
+	RIGHT OUTER JOIN Kurs AS K
+		ON KT.Kurstillfalle_kodKurs = K.kodKurs
+ORDER BY K.kodKurs;
