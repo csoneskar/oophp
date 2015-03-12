@@ -1,3 +1,6 @@
+-- Öppna mysql klienten
+mysql -u root
+
 -- Skapa ny databas
 CREATE DATABASE Skolan;
 

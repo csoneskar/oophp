@@ -13,15 +13,15 @@ class CAside {
 		}
 	}
 	
-	public function printMenu() {
+	public function printMenu($heading, $menuchoice) {
 		$this->menu  = "<aside class='left'>";
 		$this->menu .= "<nav class='vmenu'>";
 		$this->menu .= "<ul {$this->id} >";
-		$this->menu .= "<li><h4>Hur vill du spela?</h4>";
+		$this->menu .= "<li><h4>$heading</h4>";
 		$this->menu .= "<ul>";
-		$this->menu .= "<li id='alone-'><a href='alone.php'>Spela själv</a>";
-		$this->menu .= "<li id='friend-'><a href='friend.php'>Spela med en vän</a>";
-		$this->menu .= "<li id='computer-'><a href='computer.php'>Spela mot datorn</a>";
+		foreach($menuchoice AS $val) {
+			$this->menu .= "<li id={$val['id']}-'><a href='{$val['id']}.php'>{$val['heading']}</a>";
+		}
 		$this->menu .= "</ul>";
 		$this->menu .= "</ul>";
 		$this->menu .= "</nav>";

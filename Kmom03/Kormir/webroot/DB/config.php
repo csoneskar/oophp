@@ -17,7 +17,7 @@ ini_set('output_buffering', 0);   // Do not buffer outputs, write directly
  * Define Kormir paths.
  *
  */
-define('KORMIR_INSTALL_PATH', __DIR__ . '/../');
+define('KORMIR_INSTALL_PATH', __DIR__ . '/../../');
 define('KORMIR_THEME_PATH', KORMIR_INSTALL_PATH . '/theme/render.php');
  
  
@@ -41,6 +41,16 @@ session_start();
  *
  */
 $kormir = array();
+ 
+ 
+/**
+ * Settings for the database
+ *
+ */
+$kormir['database']['dsn']      	  = 'mysql:host=localhost;dbname=Movie;';
+$kormir['database']['username']    	  = 'root';
+$kormir['database']['password'] 	  = '';
+$kormir['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");  
  
  
 /**
@@ -69,7 +79,7 @@ EOD;
  *
  */
 // $kormir['stylesheet'] = 'css/style.css';		// Use if only one style is needed
-$kormir['stylesheets']	= array('css/mystyle.css', 'css/diceCss.css');		// Add more styles if needed
+$kormir['stylesheets']	= array('../css/mystyle.css', '../css/diceCss.css');		// Add more styles if needed
 $kormir['favicon']    	= 'favicon.ico';
 
 
@@ -82,11 +92,11 @@ $kormir['menu']
 = array(
 		'callback' => 'modifyNavbar',
 		'items' => array(
-					'me'  => array('text'=>'Me',  'url'=>'me.php', 'class'=>null),
-					'report'  => array('text'=>'Report',  'url'=>'report.php', 'class'=>null),
-					'roll' => array('text'=>'Roll dice', 'url'=>'start.php', 'class'=>null),
-					'movie' => array('text'=>'Movie Database', 'url'=>'db/connect.php', 'class'=>null),
-					'source' => array('text'=>'Source', 'url'=>'source.php', 'class'=>null),
+					'me'  => array('text'=>'Me',  'url'=>'../me.php', 'class'=>null),
+					'report'  => array('text'=>'Report',  'url'=>'../report.php', 'class'=>null),
+					'roll' => array('text'=>'Roll dice', 'url'=>'../start.php', 'class'=>null),
+					'movie' => array('text'=>'Movie Database', 'url'=>'connect.php', 'class'=>null),
+					'source' => array('text'=>'Source', 'url'=>'../source.php', 'class'=>null),
 		),
 	);
 

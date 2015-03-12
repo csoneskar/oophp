@@ -54,5 +54,6 @@ function getCurrentUrl() {
  *  
  */
 function dump($array) {
-  echo "<pre>" . htmlentities(print_r($array, 1)) . "</pre>";
+  $string = "<pre>" . htmlentities(print_r($array, 1)) . "</pre>";
+  return $string;
 }

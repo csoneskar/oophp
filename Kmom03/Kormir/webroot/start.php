@@ -35,9 +35,17 @@ switch ($p) {
 	break;
 }
 
+//Telling what links to put in menu
+$vmenu = array (
+	array("id" => "alone", "heading" => "Spela själv"),
+	array("id" => "friend", "heading" => "Spela med en vän"),
+	array("id" => "computer", "heading" => "Spela mot datorn")
+);
+
+
 //Creating an object of the aside menu class
 $aside = new CAside($p);
-$menu = $aside->printMenu();
+$menu = $aside->printMenu("Hur vill du spela?", $vmenu);
 
 
 $kormir['main'] = <<<EOD
