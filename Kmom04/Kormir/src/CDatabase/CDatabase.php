@@ -164,7 +164,7 @@ class CDatabase {
 		$query = array_merge($query, $options);
 		
 		//return the modified querystring
-		return $prepend . http_build_query($query);
+		return $prepend . http_build_query($query, '&amp;');
 	}
 	
 }
