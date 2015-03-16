@@ -15,6 +15,26 @@ $kormir['title'] = "Redovisning";
 $kormir['main'] = <<<EOD
 <div id="content">   
 	<h1>Redovisning av kursmomenten</h1>
+		<article class="right">
+		<h2>oophp04: PHP PDO och MySQL</h2>
+			<p>Jag gjorde guiden för filmdatabasen och jag tycker det ger många insikter att göra guiderna. Dock tycker jag den krånglas till lite väl mycket
+			ibland och då är det svårt att hänga med. Det är synd att man krånglar till det så för jag tror jag skulle lära mig mer om jag inte behövde spendera en massa tid
+			på att analysera varför man gjort på det sättet när jag tycker det finns ett enklare sätt. Men ja, det tar tid men tillslut så förstår jag det mesta. Även om jag måste tjuvkika 
+			lite i 'facit' för att förstå.</p>
+			<p>Vad det gäller Anax så tycker jag överlag det funkar bra. Jag skulle vilja ha lite mer uppdelat mellan koden i webroot och skapade därför en underkatalog där jag la min databas.
+			Då vet jag att jag har alla koden för filmdatabasen där plus den kod som då är i klasser, den ligger ju kvar under src.</p>
+			<p>Vad det gäller att göra klasser så var det lite lättare denhär gången än i uppgift 2. Det kändes mera logiskt. Dock blev det väldigt mycket parameterskickande mellan 
+			klasserna och sidkontrollerna. Jag hade nog flyttat GET-variablerna om jag hade haft tid att skriva om koden. Både CMovieSearch och CHTMLTables använder ju sig av CDatabase,
+			kanske man skulle löst det på något annat sätt än att skapa upp ett databas objekt i varje sidkontroll. Jag har försökt att inte avvika från grunduppgiften's klassuppbyggnad 
+			när jag gjort uppgiften.</p>
+			<p>Jag hade problem att få alla delar att fungera när jag hade brutit ut kod till klasserna men envist felsökande löste problemen. När jag väl fått allt att fungera lokalt så 
+			stötte jag på nya problem med att flytta hela paketet till studentserverna. Först kunde jag inte logga in, vilket visade sig bero på att jag hade fått ett lösenord med en '(' i
+			vilket inte svaldes rakt upp och ner. Efter att ha läst i forumet så hittade jag ett sätt att felsöka och kunde rätta till felet. Nästa problem var att Login-funktionen inte fungerade,
+			men den funkade klockrent lokalt... Visade sig att databasen när den kom upp på Unix maskinen ville vara case-sensitive vilket min kod inte var, så det var ju lätt avhjälpt när jag 
+			väl hittade problemet. Till sist var det valideringen och det är lite synd att man inte kan validera en lokal version av sin kod, för det blir ett himla skickande fram och tillbaka
+			innan man fått rätt på allt.</p>
+			<p>Nu ska det väl iaf fungera även på studentservern och jag kanske kan få lite tid att titta på extrauppgiften... en dropdown meny låter inte helt fel, så kanske man slipper lite av röran.</p>
+	</article>
 	<article class="right">
 		<h2>oophp03: SQL och databasen MySQL</h2>
 			<p>I och med att jag läst PT så har jag varit i kontakt med databaser tidigare och databasspråket är inget nytt. Jag har mest jobbat med MySQL, 
