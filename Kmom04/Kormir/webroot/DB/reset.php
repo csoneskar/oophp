@@ -26,11 +26,11 @@ $output = null;
 if(isset($_POST['restore']) || isset($_GET['restore'])) {
 
   // Use on Unix/Unix/Mac
-  //$cmd = "$mysql -h{$host} -u{$login} -p{$password} < $sql 2>&1";
+  $cmd = "$mysql -h{$host} -u{$login} -p{$password} < $sql 2>&1";
 
   // Use on Windows, remove password if its empty
   //$cmd = "$mysql -h{$host} -u{$login} -p{$password} < $sql 2>&1";
-  $cmd = "$mysql -h{$host} -u{$login} < $sql";
+  //$cmd = "$mysql -h{$host} -u{$login} < $sql";
 
   $res = exec($cmd);
   $output = "<p>Databasen är återställd via kommandot<br/><code>{$cmd}</code></p><p>{$res}</p>";
