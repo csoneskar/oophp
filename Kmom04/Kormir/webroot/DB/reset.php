@@ -48,7 +48,7 @@ $kormir['main'] = <<<EOD
 		<input type=submit name=restore value='Återställ databasen'/>
 		<output>
 			{$output} <br>
-			<a href = "connect.php">Tillbaka till databasen</a>
+			<a href = "moviedb.php">Tillbaka till alla filmer.</a>
 		</output>
 		</form>	
 	</article>

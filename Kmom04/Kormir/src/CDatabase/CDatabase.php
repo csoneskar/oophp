@@ -74,26 +74,26 @@ class CDatabase {
 	}
 	
 	
-/**
- * Execute a SQL-query and ignore the resultset.
- *
- * @param string $query the SQL query with ?.
- * @param array $params array which contains the argument to replace ?.
- * @param boolean $debug defaults to false, set to true to print out the sql query before executing it.
- * @return boolean returns TRUE on success or FALSE on failure. 
- */
-public function ExecuteQuery($query, $params = array(), $debug=false) {
-	self::$queries[] = $query; 
-	self::$params[]  = $params; 
-	self::$numQueries++;
+	/**
+	 * Execute a SQL-query and ignore the resultset.
+	 *
+	 * @param string $query the SQL query with ?.
+	 * @param array $params array which contains the argument to replace ?.
+	 * @param boolean $debug defaults to false, set to true to print out the sql query before executing it.
+	 * @return boolean returns TRUE on success or FALSE on failure. 
+	 */
+	public function ExecuteQuery($query, $params = array(), $debug=false) {
+		self::$queries[] = $query; 
+		self::$params[]  = $params; 
+		self::$numQueries++;
 
-	if($debug) {
-	  echo "<p>Query = <br/><pre>{$query}</pre></p><p>Num query = " . self::$numQueries . "</p><p><pre>".print_r($params, 1)."</pre></p>";
+		if($debug) {
+		  echo "<p>Query = <br/><pre>{$query}</pre></p><p>Num query = " . self::$numQueries . "</p><p><pre>".print_r($params, 1)."</pre></p>";
+		}
+
+		$this->stmt = $this->db->prepare($query);
+		return $this->stmt->execute($params);
 	}
-
-	$this->stmt = $this->db->prepare($query);
-	return $this->stmt->execute($params);
-}
   
 
 	/**
@@ -112,16 +112,16 @@ public function ExecuteQuery($query, $params = array(), $debug=false) {
 	}
   
   
-  /**
-   * Save debug information in session, useful as a flashmemory when redirecting to another page.
-   * 
-   * @param string $debug enables to save some extra debug information.
-   */
-  public function SaveDebug($debug=null) {
-    if($debug) {
-      self::$queries[] = $debug;
-      self::$params[] = null;
-    }
+	/**
+	* Save debug information in session, useful as a flashmemory when redirecting to another page.
+	* 
+	* @param string $debug enables to save some extra debug information.
+	*/
+	public function SaveDebug($debug=null) {
+	if($debug) {
+	  self::$queries[] = $debug;
+	  self::$params[] = null;
+	}
  
     self::$queries[] = 'Saved debuginformation to session.';
     self::$params[] = null;
@@ -145,6 +145,26 @@ public function ExecuteQuery($query, $params = array(), $debug=false) {
 			$html .= $val . '<br/></br>' . $params;
 		}
 		return $html . '</pre>';
+	}
+	
+	
+	/**
+	 * Use the current querystring as base, modify it according to $options and return the modified querystring.
+	 *
+	 * @param array $options to set/change
+	 * @param string $prepend this to the resulting query string
+	 * @return string with an updated querystring
+	 */
+	public function getQueryString($options, $prepend='?') {
+		// parse the query string into array
+		$query = array();
+		parse_str($_SERVER['QUERY_STRING'], $query);
+		
+		//modify the existing query string with new options
+		$query = array_merge($query, $options);
+		
+		//return the modified querystring
+		return $prepend . http_build_query($query);
 	}
 	
 }

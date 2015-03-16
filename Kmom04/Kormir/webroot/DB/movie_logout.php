@@ -11,28 +11,19 @@ include(__DIR__.'/config.php');
 $kormir['title'] = "Logga in till filmdatabasen";
  
 //Header in config file
- 
-//Connect to db
-$db = new CDatabase($kormir['database']);
- 
- 
-// Check if user is authenticated.
-$acronym = isset($_SESSION['user']) ? $_SESSION['user']->acronym : null;
- 
-if($acronym) {
-  $output = "Du är inloggad som: $acronym ({$_SESSION['user']->name})";
-}
-else {
-  $output = "Du är INTE inloggad.";
-}
+
+
+$output = "Du är fortfarande inloggad";
+$myKormir = $kormir['database'];
+$user = new CUser($myKormir);
 
 // Logout the user
 if(isset($_POST['logout'])) {
-  unset($_SESSION['user']);
-  header('Location: movie_logout.php');
+	$output = $user->logout();
+  header('Location: status.php');
 }
 
- 
+
 $kormir['main'] = <<<EOD
 <div id="content">       
 	<h1>Logga ut</h1>

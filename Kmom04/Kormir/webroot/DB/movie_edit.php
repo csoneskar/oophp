@@ -12,8 +12,9 @@ $kormir['title'] = "Editera databas";
  
  //Header in config file
  
- //Connect to db
+//Connect to db
 $db = new CDatabase($kormir['database']);
+$myKormir = $kormir['database'];
 
 /*
 Jag gör de tester jag kan göra och via strip_tags() rensar jag bort om användaren försöker skicka in HTML-kod. 
@@ -29,11 +30,14 @@ $title  = isset($_POST['title']) ? strip_tags($_POST['title']) : null;
 $year   = isset($_POST['year'])  ? strip_tags($_POST['year'])  : null;
 $image  = isset($_POST['image']) ? strip_tags($_POST['image']) : null;
 $genre  = isset($_POST['genre']) ? $_POST['genre'] : array();
+$kategori   = isset($_POST['kategori'])  ? strip_tags($_POST['kategori'])  : null;
 $save   = isset($_POST['save'])  ? true : false;
- 
+
+$user = new CUser($myKormir);
+$acronym =  $user->GetAcronym();
  
 // Check that incoming parameters are valid
-//isset($acronym) or die('Check: You must <a href="movie_login.php">login</a> to edit.');
+isset($acronym) or die('Check: You must <a href="movie_login.php">login</a> to edit.');
 is_numeric($id) or die('Check: Id must be numeric.');
 is_array($genre) or die('Check: Genre must be array.');
 
@@ -50,7 +54,13 @@ if($save) {
 	';
 	$params = array($title, $year, $id);
 	$db->ExecuteQuery($sql, $params);
+	$db->SaveDebug();
 	$output = 'Informationen sparades.';
+	$newSql = 'INSERT INTO movie2genre VALUES (?, ?)';
+	$params = array($id, $kategori);
+	$db->ExecuteQuery($newSql, $params);
+	$db->SaveDebug();
+	$output .= "Genre uppdaterad.";
 }
 
 
@@ -66,6 +76,16 @@ else {
   die('Failed: There is no movie with that id');
 }
 
+//Put genres into selection box
+$sql = "SELECT * FROM Genre ORDER BY name ASC";
+$result = $db->ExecuteSelectQueryAndFetchAll($sql);
+$myGenres = null;
+foreach($result as $row) {
+	$myGenres .= "<option value='" . $row->id . "'>" . $row->name . "</option>";
+}
+
+
+$dump = $db->Dump();
  
 $kormir['main'] = <<<EOD
 <div id="content">       
@@ -75,11 +95,15 @@ $kormir['main'] = <<<EOD
 			<input type='hidden' name='id' value='{$id}'/>
 			<p><label>Titel: </label><input type="text" name="title" value='{$movie->title}'></p>
 			<p><label>År: 	 </label><input type="text" name="year" value='{$movie->year}'></p>
-			<p><label>Bild:  </label><input type="text" name="bild" value='{$movie->image}'></p>
+			<p><label>Bild:  </label><input type="text" name="image" value='{$movie->image}'></p>
+			<p><label>Kategori: <select name="kategori">
+				{$myGenres}
+			</select></p>
 			<p class="submit"><input type="submit" name="save" value="Spara"><input type="reset" value="Återställ"></p>
 		</form>
 		<p>{$output}</p>
-		<a href="connect.php">Visa alla</a>
+		<p>{$dump}</p>
+		<a href="moviedb.php">Visa alla</a>
 	</article>	  
 </div>
 EOD;

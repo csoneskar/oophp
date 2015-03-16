@@ -12,35 +12,25 @@ $kormir['title'] = "Logga in till filmdatabasen";
  
 //Header in config file
  
-//Connect to db
-$db = new CDatabase($kormir['database']);
- 
+$myKormir = $kormir['database'];
+$user = new CUser($myKormir);
  
 // Check if user is authenticated.
-$acronym = isset($_SESSION['user']) ? $_SESSION['user']->acronym : null;
+//$acronym = isset($_SESSION['user']) ? $_SESSION['user']->acronym : null;
+$password = null;
+$acronym = null;
  
-if($acronym) {
-  $output = "Du är inloggad som: $acronym ({$_SESSION['user']->name})";
-}
-else {
-  $output = "Du är INTE inloggad.";
-}
 
-$resultatet = '<p>Inget skrivet</p>';
-
-// Check if user and password is okey
+ // Check if user and password is okey
 if(isset($_POST['login'])) {
-  $sql = "SELECT acronym, name FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
-  $params=array($_POST['acronym'], $_POST['password']);
-  $res = $db->ExecuteSelectQueryAndFetchAll($sql, $params);
-  echo 'Hej' . $res;
-  $resultatet = $db->Dump();
-  if(isset($res[0])) {
-    $_SESSION['user'] = $res[0];
-  }
-  header('Location: movie_login.php');
+  $password = $_POST['password'];
+  $acronym = $_POST['acronym'];
+  $user->Login($acronym, $password);
 }
 
+
+$user->IsAuthenticated();
+$output = $user->GetOutput();
  
 $kormir['main'] = <<<EOD
 <div id="content">       
@@ -54,6 +44,7 @@ $kormir['main'] = <<<EOD
 			  <p><label>Lösenord: </label><input type="password" name="password" value"" placeholder="Password"></p>
 			  <p><input type='submit' name='login' value='Login'/></p>
 			  <p><a href='movie_logout.php'>Logout</a></p>
+			  <p><a href='moviedb.php'>Visa alla filmer</a></p>
 			  <output><b>{$output}</b></output>
 		  </fieldset>
 		</form>

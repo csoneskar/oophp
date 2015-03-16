@@ -44,12 +44,22 @@ $kormir = array();
  
  
 /**
- * Settings for the database
+ * Settings for the database on local
  *
  */
-$kormir['database']['dsn']      	  = 'mysql:host=localhost;dbname=Movie;';
-$kormir['database']['username']    	  = 'root';
-$kormir['database']['password'] 	  = '';
+//$kormir['database']['dsn']      	  = 'mysql:host=localhost;dbname=Movie;';
+//$kormir['database']['username']    	  = 'root';
+//$kormir['database']['password'] 	  = '';
+//$kormir['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");  
+
+
+/**
+ * Settings for the database on student
+ *
+ */
+$kormir['database']['dsn']      	  = 'mysql:host=blu-ray.student.bth.se;dbname=cewe14;';
+$kormir['database']['username']     = 'cewe14';
+$kormir['database']['password'] 	  = 'r6I4e2>(';
 $kormir['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");  
  
  

@@ -12,20 +12,20 @@ $kormir['title'] = "Editera databas";
  
  //Header in config file
  
- //Connect to db
+//Connect to db
 $db = new CDatabase($kormir['database']);
+$myKormir = $kormir['database'];
 
 // Get parameters 
 //$id     = isset($_POST['id'])    ? strip_tags($_POST['id']) : null;
 $title  = isset($_POST['title']) ? strip_tags($_POST['title']) : null;
-//$year   = isset($_POST['year'])  ? strip_tags($_POST['year'])  : null;
-//$image  = isset($_POST['image']) ? strip_tags($_POST['image']) : null;
-//$genre  = isset($_POST['genre']) ? $_POST['genre'] : array();
 $create = isset($_POST['create'])  ? true : false;
  
- 
+
+$user = new CUser($myKormir);
+$acronym =  $user->GetAcronym(); 
 // Check that incoming parameters are valid
-//isset($acronym) or die('Check: You must <a href="movie_login.php">login</a> to edit.');
+isset($acronym) or die('Check: You must <a href="movie_login.php">login</a> to edit.');
 
 // Check if form was submitted
 $output = null;

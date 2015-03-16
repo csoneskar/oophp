@@ -53,6 +53,9 @@ $order = isset($_GET['order']) ? strtolower($_GET['order']) : 'asc';
 $hits = isset($_GET['hits']) ? $_GET['hits'] : 8;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
+$searchArray = array("title"=>$title, "year1"=>$year1, "year2"=>$year2, "genre"=>$genre);
+$movie = new CMovieSearch($searchArray);
+
 // Check that parameters are valid
 in_array($orderby, array('id', 'title', 'year')) or die('Check: Not valid column.');
 in_array($order, array('asc', 'desc')) or die('Check: Not valid sort order');
