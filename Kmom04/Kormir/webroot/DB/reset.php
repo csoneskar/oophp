@@ -13,7 +13,7 @@ $sql      = 'movie.sql';
 $mysql    = '/usr/bin/mysql';
 $host     = 'blu-ray.student.bth.se';
 $login    = 'cewe14';
-$password = "r6I4e2Z(";
+$password = '"r6I4e2Z("';
 $output = null;
 
 // Use these settings on windows and WAMPServer, 
