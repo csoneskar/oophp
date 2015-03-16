@@ -141,8 +141,8 @@ class CDatabase {
 	public function Dump() {
 		$html = '<p><i>You have made ' . self::$numQueries . ' database queries.</i></p><pre>';
 		foreach(self::$queries as $key => $val) {
-			$params = empty(self::$params[$key]) ? null : htmlentities(print_r(self::$params[$key], 1)) . '<br/></br>';
-			$html .= $val . '<br/></br>' . $params;
+			$params = empty(self::$params[$key]) ? null : htmlentities(print_r(self::$params[$key], 1));
+			$html .= $val . $params;
 		}
 		return $html . '</pre>';
 	}

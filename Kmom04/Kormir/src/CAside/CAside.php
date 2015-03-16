@@ -20,7 +20,7 @@ class CAside {
 		$this->menu .= "<li><h4>$heading</h4>";
 		$this->menu .= "<ul>";
 		foreach($menuchoice AS $val) {
-			$this->menu .= "<li id={$val['id']}-'><a href='{$val['id']}.php'>{$val['heading']}</a>";
+			$this->menu .= "<li id={$val['id']}-><a href='{$val['id']}.php'>{$val['heading']}</a>";
 		}
 		$this->menu .= "</ul>";
 		$this->menu .= "</ul>";

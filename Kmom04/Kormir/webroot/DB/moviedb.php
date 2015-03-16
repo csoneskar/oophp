@@ -62,25 +62,11 @@ $page = $htmlTable->GetPage();
  
 
 $title = htmlentities($title);
-$params = $movie->GetParams();
-$paramsPrint = htmlentities(print_r($params, 1));
 $sqlDebug = $db->Dump();
 $table = $htmlTable->PrintTable();
 $genres = $movie->GetGenres();
 $sql = $movie->GetSQL();
 $searchField = $movie->CreateSearchField();
-
-
-/*
-		<div class='dbtable'>
-			<div class='rows'>{$hitsPerPage}</div>
-			<table>
-				{$table}
-			</table>	
-			<div class='pages'>{$navigatePage}</div>
-		</div>
-*/
-
 
 
 $kormir['main'] = <<<EOD
@@ -91,9 +77,8 @@ $kormir['main'] = <<<EOD
 		{$searchField}
 		<p>Resultatet från SQL-frågan:</p>
 		<p><code>{$sql}</code></p>
-		<p><pre>{$paramsPrint}</pre></p>
-			{$table}
-		<p>{$sqlDebug}</p>
+		{$table}
+		{$sqlDebug}
 	</article>
 </div>
 EOD;
