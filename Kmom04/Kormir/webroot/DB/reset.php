@@ -10,17 +10,17 @@ include(__DIR__.'/config.php');
 
 // Restore the database to its original settings
 $sql      = 'movie.sql';
-$mysql    = '/usr/local/bin/mysql';
-$host     = 'localhost';
-$login    = 'acronym';
-$password = "Intentionally removed by CSource";
+$mysql    = '/usr/bin/mysql';
+$host     = 'blu-ray.student.bth.se';
+$login    = 'cewe14';
+$password = "r6I4e2Z(";
 $output = null;
 
 // Use these settings on windows and WAMPServer, 
 // but you must check - and change - your path to the executable mysql.exe
-$mysql    = 'C:\xampp\mysql\bin\mysql.exe';
-$login    = 'root';
-$password = '';
+//$mysql    = 'C:\xampp\mysql\bin\mysql.exe';		//Localhost
+//$login    = 'root';
+//$password = '';
 
 
 if(isset($_POST['restore']) || isset($_GET['restore'])) {
