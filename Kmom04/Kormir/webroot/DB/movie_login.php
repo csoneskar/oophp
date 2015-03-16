@@ -26,6 +26,7 @@ if(isset($_POST['login'])) {
   $password = $_POST['password'];
   $acronym = $_POST['acronym'];
   $user->Login($acronym, $password);
+  echo "Har skickat inlogg";
 }
 
 
