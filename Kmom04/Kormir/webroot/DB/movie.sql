@@ -4,7 +4,7 @@
 
 -- Use above for lovalhost. Below is for student.
 
-USEncewe14;
+USE cewe14;
 
 SET NAMES 'utf8';
 
