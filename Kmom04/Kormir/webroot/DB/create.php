@@ -25,7 +25,7 @@ $create = isset($_POST['create'])  ? true : false;
 $user = new CUser($myKormir);
 $acronym =  $user->GetAcronym(); 
 // Check that incoming parameters are valid
-isset($acronym) or die('Check: You must login to edit.');
+isset($acronym) or die('Check: You must <a href="movie_login.php">login</a> to edit.');
 
 // Check if form was submitted
 $output = null;

@@ -38,7 +38,7 @@ $user = new CUser($myKormir);
 $acronym =  $user->GetAcronym();
  
 // Check that incoming parameters are valid
-isset($acronym) or die('Check: You must login to edit.');
+isset($acronym) or die('Check: You must <a href="movie_login.php">login</a> to edit.');
 is_numeric($id) or die('Check: Id must be numeric.');
 is_array($genre) or die('Check: Genre must be array.');
 
