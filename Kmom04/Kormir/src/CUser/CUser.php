@@ -38,7 +38,6 @@ class CUser {
 			$this->output = "Du är inloggad som: $this->acronym ({$_SESSION['user']->name})";
 		}
 		else if(($this->acronym && $this->password) != null) {
-			echo "Försöker logga in";
 			//Logga in
 			$sql = "SELECT acronym, name FROM USER WHERE acronym = ? AND password = md5(concat(?, salt))";
 			$params=array($this->acronym, $this->password);

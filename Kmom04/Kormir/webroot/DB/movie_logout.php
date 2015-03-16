@@ -13,9 +13,11 @@ $kormir['title'] = "Logga in till filmdatabasen";
 //Header in config file
 
 
-$output = "Du är fortfarande inloggad";
 $myKormir = $kormir['database'];
 $user = new CUser($myKormir);
+
+$user->IsAuthenticated();
+$output = $user->GetOutput();
 
 // Logout the user
 if(isset($_POST['logout'])) {
