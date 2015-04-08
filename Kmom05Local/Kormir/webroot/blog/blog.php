@@ -34,63 +34,16 @@ $menu = $aside->printMenu("Gör ett val", $vmenu);
 //Connect to db
 $db = new CDatabase($kormir['database']);
 
-//Create a Filter object for text filtering
-$filter = new CTextFilter();
-
 //Get parameters
 $slug = isset($_GET['slug']) ? $_GET['slug'] : null;
-$acronym = isset($_SESSION['user']) ? $_SESSION['user']->acronym : null;
 
-// Get content
-$slugSql = $slug ? 'slug = ?' : '1';
-$sql = "
-SELECT *
-FROM Content
-WHERE
-  type = 'post' AND
-  $slugSql AND
-  published <= NOW()
-ORDER BY updated DESC
-;
-";
-$res = $db->ExecuteSelectQueryAndFetchAll($sql, array($slug));
-
+$dbParams = $kormir['database'];
+$blog = new CBlog($dbParams);
+$page = $blog->GetPost($slug, $menu);
 
 // Prepare content and store it all in variables in the Kormir container.
 $kormir['title'] = "Bloggen";
-$kormir['main'] = <<<EOD
-	<div id="content">  
-	{$menu}
-EOD;
-if(isset($res[0])) {
-  foreach($res as $post) {
-    $title  = htmlentities($post->title, null, 'UTF-8');
-    $data   = $filter->doFilter(htmlentities($post->data, null, 'UTF-8'), $post->filter);
- 
-    $kormir['main'] .= <<<EOD
-	  <section>
-	  <article  class="right">
-	  <header>
-	  <h1><a href='blog.php?slug={$post->slug}'>{$title}</a></h1>
-	  </header>
-	 
-	  {$data}
-	 
-	  <footer>
-	  </footer
-	  </article>
-	  </section>
-EOD;
-  }
-  $kormir['main'] .= "</div>";
-}
-else if($slug) {
-  $kormir['main'] = "Det fanns inte en sådan bloggpost.";
-}
-else {
-  $kormir['main'] = "Det fanns inga bloggposter.";
-}
- 
- 
+$kormir['main'] = $page;
+
 // Finally, leave it all to the rendering phase of Kormir.
 include(KORMIR_THEME_PATH);

@@ -8,7 +8,7 @@ include(__DIR__.'/config.php');
  
  
 // Do it and store it all in variables in the Kormir container.
-$kormir['title'] = "Editera ett inlägg";
+$kormir['title'] = "Ta bort ett inlägg";
  
 //Header in config file
  
@@ -18,6 +18,7 @@ $dbParams = $kormir['database'];
 $content = new CContent($dbParams);
 
 $output = null;
+$title = null;
 
 /*
 Jag gör de tester jag kan göra och via strip_tags() rensar jag bort om användaren försöker skicka in HTML-kod. 
@@ -28,15 +29,8 @@ Båda två är rätt, det gäller bara att vara konsistent när man valt taktik.
 */
 
 // Get parameters 
-$id     = isset($_POST['id'])    ? strip_tags($_POST['id']) : (isset($_GET['id']) ? strip_tags($_GET['id']) : null);
-$title  = isset($_POST['title']) ? $_POST['title'] : null;
-$slug   = isset($_POST['slug'])  ? strip_tags($_POST['slug'])  : null;
-$url  = isset($_POST['url']) ? strip_tags($_POST['url']) : null;
-$data  = isset($_POST['data']) ? $_POST['data'] : array();
-$type  = isset($_POST['type']) ? strip_tags($_POST['type']) : null;
-$filter  = isset($_POST['filter']) ? strip_tags($_POST['filter']) : null;
-$published  = isset($_POST['published']) ? strip_tags($_POST['published']) : null;
-$save   = isset($_POST['save'])  ? true : false;
+$id     = isset($_GET['id']) ? strip_tags($_GET['id']) : null;
+$delete   = isset($_POST['delete'])  ? true : false;
 
 $user = new CUser($dbParams);
 $acronym =  $user->GetAcronym();
@@ -48,37 +42,25 @@ is_numeric($id) or die('Check: Id must be numeric.');
 
 
 // Check if form was submitted
-if($save) {
-	$params = array($title, $slug, $url, $data, $type, $filter, $published, $id);
-	$output = $content->EditContent($params);
+if($delete) {
+	$params = array($id);
+	$output = $content->DeleteContent($params);		//Printing the result if not able to remove.
 }
 
-
 $post = $content->GetContent($id);
-
-$url    = htmlentities($post->url, null, 'UTF-8');
-$type   = htmlentities($post->type, null, 'UTF-8');
 $title  = htmlentities($post->title, null, 'UTF-8');
-$data   = htmlentities($post->data, null, 'UTF-8');
-
-
 
 $kormir['debug'] = $db->Dump();
  
 $kormir['main'] = <<<EOD
 <div id="content">       
-	<h1>Uppdatera innehåll</h1>
+	<h1>Ta bort innehåll</h1>
 	<article class="right">
 		<form method="post">
 			<input type='hidden' name='id' value='{$id}'/>
+			<p>Vill du ta bort följande innehåll?</p>
 			<p><label>Titel: </label><input type="text" name="title" value='{$title}'></p>
-			<p><label>Slug: 	 </label><input type="text" name="slug" value='{$post->slug}'></p>
-			<p><label>URL:  </label><input type="text" name="url" value='{$url}'></p>
-			<p><label>Text:  </label><br><textarea name="data">{$data}</textarea></p>
-			<p><label>Typ:  </label><input type="text" name="type" value='{$type}'></p>
-			<p><label>Filter:  </label><input type="text" name="filter" value='{$post->filter}'></p>
-			<p><label>Publiceringsdatum:  </label><input type="text" name="published" value='{$post->published}'></p>
-			<p class="submit"><input type="submit" name="save" value="Uppdatera"><input type="reset" value="Återställ"></p>
+			<p class="submit"><input type="submit" name="delete" value="Ta bort"></p>
 		</form>
 		<a href="view.php">Visa alla</a>
 		<p>$output</p>
@@ -89,6 +71,7 @@ $kormir['main'] = <<<EOD
 </div>
 EOD;
  
+
  
 // Finally, leave it all to the rendering phase of Kormir.
 include(KORMIR_THEME_PATH);

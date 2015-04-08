@@ -6,12 +6,27 @@
 // Include the essential config-file which also creates the $kormir variable with its defaults.
 include(__DIR__.'/config.php'); 
 
+
+
+// Restore the database to its original settings
+//$sql      = 'movie.sql';
+//$mysql    = '/usr/bin/mysql';
+//$host     = 'blu-ray.student.bth.se';
+//$login    = 'cewe14';
+//$password = "r6I4e2Z(";
+
+
+// Use these settings on windows and WAMPServer, 
+// but you must check - and change - your path to the executable mysql.exe
+$sql 	  = 'movie.sql';
+$mysql    = 'C:\xampp\mysql\bin\mysql.exe';		//Localhost
+$login    = 'root';
+$password = '';
+$host 	  = 'localhost';
 $output = null;
-$dbParams = $kormir['database'];
-$content = new CContent($dbParams);
 
 if(isset($_POST['restore']) || isset($_GET['restore'])) {
-/*
+
   // Use on Unix/Unix/Mac
   //$cmd = "$mysql -h{$host} -u{$login} -p{$password} < $sql 2>&1";
 
@@ -21,8 +36,6 @@ if(isset($_POST['restore']) || isset($_GET['restore'])) {
 
   $res = exec($cmd);
   $output = "<p>Databasen är återställd via kommandot<br/><code>{$cmd}</code></p><p>{$res}</p>";
-*/  
-  $output = $content->InitDB();
 }
 
 
@@ -37,7 +50,7 @@ $kormir['main'] = <<<EOD
 		<input type=submit name=restore value='Återställ databasen'/>
 		<output>
 			{$output} <br>
-			<a href = "view.php">Tillbaka</a>
+			<a href = "moviedb.php">Tillbaka till alla filmer.</a>
 		</output>
 		</form>	
 	</article>

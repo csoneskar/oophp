@@ -35,13 +35,11 @@ class CUser {
 		$this->acronym = $acronym;
 		$this->password = $password;
 		if($this->IsAuthenticated()) {
-			echo "redan inloggad";
 			$this->output = "Du är inloggad som: $this->acronym ({$_SESSION['user']->name})";
 		}
 		else if(($this->acronym && $this->password) != null) {
-			echo "Försöker logga in";
 			//Logga in
-			$sql = "SELECT acronym, name FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
+			$sql = "SELECT acronym, name FROM USER WHERE acronym = ? AND password = md5(concat(?, salt))";
 			$params=array($this->acronym, $this->password);
 			$res = $this->db->ExecuteSelectQueryAndFetchAll($sql, $params);
 			if(isset($res[0])) {

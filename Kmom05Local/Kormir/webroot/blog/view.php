@@ -24,8 +24,8 @@ if(isset($_GET["p"]))
 $vmenu = array (
 	array("id" => "reset", "heading" => "Nollställ DB"),
 	array("id" => "view", "heading" => "Visa alla"),
-	array("id" => "movie_login", "heading" => "Logga in"),
-	array("id" => "movie_logout", "heading" => "Logga ut"),
+	array("id" => "login", "heading" => "Logga in"),
+	array("id" => "logout", "heading" => "Logga ut"),
 	array("id" => "status", "heading" => "Inloggad status"),
 	array("id" => "create", "heading" => "Skapa"),
 	
@@ -66,7 +66,7 @@ $res = $db->ExecuteSelectQueryAndFetchAll($sql);
 // Put results into a list
 $items = null;
 foreach($res AS $key => $val) {
-  $items .= "<li>{$val->type} (" . (!$val->available ? 'inte ' : null) . "publicerad): " . htmlentities($val->title, null, 'UTF-8') . " (<a href='edit.php?id={$val->id}'>editera</a> <a href='" . getUrlToContent($val) . "'>visa</a>)</li>\n";
+  $items .= "<li>{$val->type} (" . (!$val->available ? 'inte ' : null) . "publicerad): " . htmlentities($val->title, null, 'UTF-8') . " (<a href='edit.php?id={$val->id}'>editera</a> <a href='" . getUrlToContent($val) . "'>visa</a> <a href='delete.php?id={$val->id}'>ta bort</a>)</li>\n";
 }
 
 $kormir['debug'] = $db->Dump();

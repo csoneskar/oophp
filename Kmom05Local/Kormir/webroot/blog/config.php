@@ -105,7 +105,8 @@ $kormir['menu']
 					'me'  => array('text'=>'Me',  'url'=>'../me.php', 'class'=>null),
 					'report'  => array('text'=>'Report',  'url'=>'../report.php', 'class'=>null),
 					'roll' => array('text'=>'Roll dice', 'url'=>'../start.php', 'class'=>null),
-					'movie' => array('text'=>'Movie Database', 'url'=>'connect.php', 'class'=>null),
+					'movie' => array('text'=>'Movie Database', 'url'=>'../DB/moviedb.php', 'class'=>null),
+					'blog' => array('text'=>'Blog Database', 'url'=>'../blog/view.php', 'class'=>null),
 					'source' => array('text'=>'Source', 'url'=>'../source.php', 'class'=>null),
 		),
 	);

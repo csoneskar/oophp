@@ -35,53 +35,19 @@ $menu = $aside->printMenu("Gör ett val", $vmenu);
 //Connect to db
 $db = new CDatabase($kormir['database']);
 
-//Create a Filter object for text filtering
-$filter = new CTextFilter();
-
 //Get parameters
 $url = isset($_GET['url']) ? $_GET['url'] : null;
-$acronym = isset($_SESSION['user']) ? $_SESSION['user']->acronym : null;
+//$acronym = isset($_SESSION['user']) ? $_SESSION['user']->acronym : null;
 
-// Get content
-$sql = "
-SELECT *
-FROM Content
-WHERE
-  type = 'page' AND
-  url = ? AND
-  published <= NOW();
-";
-$res = $db->ExecuteSelectQueryAndFetchAll($sql, array($url));
-
-if(isset($res[0])) {
-  $post = $res[0];
-}
-else {
-  die('Misslyckades: det finns inget innehåll.');
-}
-
-// Sanitize content before using it.
-$title  = htmlentities($post->title, null, 'UTF-8');
-$data   = $filter->doFilter(htmlentities($post->data, null, 'UTF-8'), $post->filter);
-
+$dbParams = $kormir['database'];
+$page = new CPage($dbParams);
+$pageArray = $page->GetPage($url, $menu);
 
 // Prepare content and store it all in variables in the Kormir container.
-$kormir['title'] = $title;
+$kormir['title'] = $pageArray["title"];
 $kormir['debug'] = $db->Dump();
 
-$editLink = $acronym ? "<a href='edit.php?id={$c->id}'>Uppdatera sidan</a>" : null;
-
-$kormir['main'] = <<<EOD
-<div id="content">   
-	{$menu}
-	<article class="right">
-		<h1>{$title}</h1>
-	{$data}
-		{$editLink}
-	</article>
-</div>
-EOD;
- 
+$kormir['main'] = $pageArray["page"];
  
 // Finally, leave it all to the rendering phase of Kormir.
 include(KORMIR_THEME_PATH);

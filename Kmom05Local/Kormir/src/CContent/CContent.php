@@ -62,8 +62,67 @@ class CContent {
 		return $post;
 	}
 	
-	public function CreateContent() {
+	public function GetBlogContent($slug) {
+		// Select information on the blogpost 
+		$slugSql = $slug ? 'slug = ?' : '1';
+		$sql = "
+		SELECT *
+		FROM Content
+		WHERE
+		  type = 'post' AND
+		  $slugSql AND
+		  published <= NOW()
+		ORDER BY updated DESC
+		;
+		";
+		$res = $this->db->ExecuteSelectQueryAndFetchAll($sql, array($slug));
+		 
+		if(isset($res[0])) {
+		  return $res;
+		}
+		else {
+		  die('Failed: There is no blogpost with that id');
+		}
+	}
+	
+	public function GetPage($url) {
+		// Select information on the blogpost 
+		$sql = "
+		SELECT *
+		FROM Content
+		WHERE
+		  type = 'page' AND
+		  url = ? AND
+		  published <= NOW();
+		";
+		$res = $this->db->ExecuteSelectQueryAndFetchAll($sql, array($url));
+		 
+		if(isset($res[0])) {
+		  return $res;
+		}
+		else {
+		  die('Misslyckades: det finns inget innehåll.');
+		}
+	}	
+	
+	
+	public function CreateContent($params) {
+		$sql = '
+		INSERT INTO Content SET
+			title = ?,
+			slug 	= ?,
+			url 	= ?,
+			data 	= ?,
+			type 	= ?,
+			filter 	= ?,
+			published 	= ?,
+			created 	= NOW()
+		';
 		
+		$url = empty($url) ? null : $url;	//Check if URL is empty, if so set to NULL
+		$res = $this->db->ExecuteQuery($sql, $params);
+		$this->db->SaveDebug();
+		header('Location: view.php');
 	}
 	
 	public function EditContent($params) {
@@ -92,8 +151,20 @@ class CContent {
 		return $output;
 	}
 	
-	public function DeleteContent() {
-		
+	public function DeleteContent($params) {
+		$sql = '
+		DELETE FROM Content WHERE id = ?
+		';
+		$res = $this->db->ExecuteQuery($sql, $params);
+		$this->db->SaveDebug();
+		if($res) {
+			$output = 'Posten raderades.';
+			header('Location: view.php');
+		}
+		else {
+			$output = 'Posten raderades EJ.<br><pre>' . print_r($this->db->ErrorInfo(), 1) . '</pre>';
+		}
+		return $output;	
 	}
 	
 	

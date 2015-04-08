@@ -1,33 +1,116 @@
+CREATE DATABASE IF NOT EXISTS Movie;
+
+USE Movie;
+
+-- Use above for lovalhost. Below is for student.
+
+-- USE cewe14;
+
+SET NAMES 'utf8';
+
 --
--- Create table for Content
+-- Drop all tables in the right order.
 --
-DROP TABLE IF EXISTS Content;
-CREATE TABLE Content
+DROP TABLE IF EXISTS Movie2Genre;
+DROP TABLE IF EXISTS Genre;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Movie;
+
+
+--
+-- Create table for my own movie database
+--
+DROP TABLE IF EXISTS Movie;
+CREATE TABLE Movie
 (
-  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  slug CHAR(80) UNIQUE,
-  url CHAR(80) UNIQUE,
- 
-  TYPE CHAR(80),
-  title VARCHAR(80),
-  DATA TEXT,
-  FILTER CHAR(80),
- 
-  published DATETIME,
-  created DATETIME,
-  updated DATETIME,
-  deleted DATETIME
- 
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    director VARCHAR(100),
+    length INT DEFAULT NULL, -- Length in minutes
+    year INT NOT NULL DEFAULT 1900,
+    plot TEXT, -- Short intro to the movie
+    image VARCHAR(100) DEFAULT NULL, -- Link to an image
+    subtext CHAR(3) DEFAULT NULL, -- swe, fin, en, etc
+    speech CHAR(3) DEFAULT NULL, -- swe, fin, en, etc
+    quality CHAR(3) DEFAULT NULL,
+    format CHAR(3) DEFAULT NULL -- mp4, divx, etc
 ) ENGINE INNODB CHARACTER SET utf8;
 
 
-INSERT INTO Content (slug, url, TYPE, title, DATA, FILTER, published, created) VALUES
-  ('hem', 'hem', 'page', 'Hem', "Detta är min hemsida. Den är skriven i [url=http://en.wikipedia.org/wiki/BBCode]bbcode[/url] vilket innebär att man kan formattera texten till [b]bold[/b] och [i]kursiv stil[/i] samt hantera länkar.\n\nDessutom finns ett filter 'nl2br' som lägger in <br>-element istället för \\n, det är smidigt, man kan skriva texten precis som man tänker sig att den skall visas, med radbrytningar.", 'bbcode,nl2br', NOW(), NOW()),
-  ('om', 'om', 'page', 'Om', "Detta är en sida om mig och min webbplats. Den är skriven i [Markdown](http://en.wikipedia.org/wiki/Markdown). Markdown innebär att du får bra kontroll över innehållet i din sida, du kan formattera och sätta rubriker, men du behöver inte bry dig om HTML.\n\nRubrik nivå 2\n-------------\n\nDu skriver enkla styrtecken för att formattera texten som **fetstil** och *kursiv*. Det finns ett speciellt sätt att länka, skapa tabeller och så vidare.\n\n###Rubrik nivå 3\n\nNär man skriver i markdown så blir det läsbart även som textfil och det är lite av tanken med markdown.", 'markdown', NOW(), NOW()),
-  ('blogpost-1', NULL, 'post', 'Välkommen till min blogg!', "Detta är en bloggpost.\n\nNär det finns länkar till andra webbplatser så kommer de länkarna att bli klickbara.\n\nhttp://dbwebb.se är ett exempel på en länk som blir klickbar.", 'link,nl2br', NOW(), NOW()),
-  ('blogpost-2', NULL, 'post', 'Nu har sommaren kommit', "Detta är en bloggpost som berättar att sommaren har kommit, ett budskap som kräver en bloggpost.", 'nl2br', NOW(), NOW()),
-  ('blogpost-3', NULL, 'post', 'Nu har hösten kommit', "Detta är en bloggpost som berättar att sommaren har kommit, ett budskap som kräver en bloggpost", 'nl2br', NOW(), NOW())
+INSERT INTO Movie (title, year, image) VALUES
+    ('Pulp fiction', 1994, 'img/movie/pulp-fiction.jpg'),
+    ('American Pie', 1999, 'img/movie/american-pie.jpg'),
+    ('Pokémon The Movie 2000', 1999, 'img/movie/pokemon.jpg'),    
+    ('Kopps', 2003, 'img/movie/kopps.jpg'),
+    ('From Dusk Till Dawn', 1996, 'img/movie/from-dusk-till-dawn.jpg')
 ;
+
+
+--
+-- Add tables for genre
+--
+DROP TABLE IF EXISTS Genre;
+CREATE TABLE Genre
+(
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name CHAR(20) NOT NULL -- crime, svenskt, college, drama, etc
+) ENGINE INNODB CHARACTER SET utf8;
+
+INSERT INTO Genre (name) VALUES 
+    ('comedy'), ('romance'), ('college'), 
+    ('crime'), ('drama'), ('thriller'), 
+    ('animation'), ('adventure'), ('family'), 
+    ('svenskt'), ('action'), ('horror')
+;
+
+DROP TABLE IF EXISTS Movie2Genre;
+CREATE TABLE Movie2Genre
+(
+    idMovie INT NOT NULL,
+    idGenre INT NOT NULL,
+
+    FOREIGN KEY (idMovie) REFERENCES Movie (id),
+    FOREIGN KEY (idGenre) REFERENCES Genre (id),
+
+    PRIMARY KEY (idMovie, idGenre)
+) ENGINE INNODB;
+
+
+INSERT INTO Movie2Genre (idMovie, idGenre) VALUES
+    (1, 1),
+    (1, 5),
+    (1, 6),
+    (2, 1),
+    (2, 2),
+    (2, 3),
+    (3, 7),    
+    (3, 8),    
+    (3, 9),    
+    (4, 11),
+    (4, 1),
+    (4, 10),
+    (4, 9),
+    (5, 11),
+    (5, 4),
+    (5, 12)
+;
+
+DROP VIEW IF EXISTS VMovie;
+
+CREATE VIEW VMovie
+AS
+SELECT 
+    M.*,
+    GROUP_CONCAT(G.name) AS genre
+FROM Movie AS M
+    LEFT OUTER JOIN Movie2Genre AS M2G
+        ON M.id = M2G.idMovie
+
+    LEFT OUTER JOIN Genre AS G
+         ON M2G.idGenre = G.id
+GROUP BY M.id
+;
+
 
 --
 -- Table for user
