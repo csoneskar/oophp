@@ -24,7 +24,7 @@ class CContent {
 	$mysql    = '/usr/bin/mysql';
 	$host     = 'blu-ray.student.bth.se';
 	$login    = 'cewe14';
-	$password = "r6I4e2Z(";
+	$password = '"r6I4e2Z("';
 
 
 	// Use these settings on windows and WAMPServer, 
