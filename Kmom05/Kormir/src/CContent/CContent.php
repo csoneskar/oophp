@@ -24,7 +24,7 @@ class CContent {
 	$mysql    = '/usr/bin/mysql';
 	$host     = 'blu-ray.student.bth.se';
 	$login    = 'cewe14';
-	define('DB_PASSWORD', '"r6I4e2Z("'); // The database password
+	//define('DB_PASSWORD', '"r6I4e2Z("'); // The database password
 	$password = DB_PASSWORD;
 
 
