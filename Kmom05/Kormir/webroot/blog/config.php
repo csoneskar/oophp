@@ -57,9 +57,10 @@ $kormir = array();
  * Settings for the database on student
  *
  */
+define('DB_PASSWORD', 'r6I4e2Z(');
 $kormir['database']['dsn']      	  = 'mysql:host=blu-ray.student.bth.se;dbname=cewe14;';
 $kormir['database']['username']     = 'cewe14';
-$kormir['database']['password'] 	  = 'r6I4e2Z(';
+$kormir['database']['password'] 	  = DB_PASSWORD;
 $kormir['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");  
  
  
