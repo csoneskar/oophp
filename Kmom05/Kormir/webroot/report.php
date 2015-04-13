@@ -16,6 +16,44 @@ $kormir['main'] = <<<EOD
 <div id="content">   
 	<h1>Redovisning av kursmomenten</h1>
 	<article class="right">
+		<h2>oophp05: Lagra innehåll i databasen</h2>
+		<p>Det som har varit svårast denna uppgiften är att få tiden att räcka till. När jag väl har fått sitta i lugn och ro och koncentrera mig på det som 
+		ska göras så har uppgiften känts ganska lagom i svårighetsgrad. Det har varit ett antal tillfällen då jag fått tänka till, speciellt i uppdelningen av 
+		klasser och vad som ska placeras var. Dock så funkar det nu och jag tycker jag har sädat upp hyfsat i sidkontrollerna. Jag känner mig nöjd med resultatet men skulle vilja ha  haft lite mer tid för att
+		stoppa in felkontroller i tex publiceringsdatum. Har ingen aning om vad som händer om man gör fel där... men har tyvärr inte mer tid till denna uppgift nu utan måste 
+		gå vidare med nästa.</p>
+		<p>Jag tycker man får en väldigt bra förståese för det som ska göras genom att gå igenom övningsuppgifterna innan man börjar med själva inlämningsuppgiften. Jag är
+		inte säker på om jag hade löst uppfigerna utan denna övning först, så där lär jag mig jättemycket.</p>
+		<p>Jag har försökt strukturera upp koden och tycker det blir prydligt och översiktligt med 'anax'. Det jag kan finna blir lite rörigt är inne i själva webroot, där vill
+		jag gärna ha mer struktur med underkataloger för varje uppgift. Det innebär dock att jag måste in och uppdatera config-filen som ligger i flera olika mappar och det känns inte optimalt och
+		lätt att glömma bort. Här skulle jag gärna se en smidigare lösning än den jag har nu.</p>
+		<p>Känslan för att dela upp koden... nja, den sitter inte klockrent men det börjar kännas mer naturligt att bryta ut saker. Men hitintills så följer jag slaviskt vad 
+		som står i upgiftsbeskrivningen. Så jättemycket egen tanke är det inte bakom, mer än att försöka banta sidkontrollerna och få allt att lira tillsammans. Jag hade mycket väl kunnat
+		nöja mig innan vi bröt ut CPage och CBlog för där ser jag inte riktigt nyttan ännu, men jag misstänker att det kommer längre fram!</p>
+		<p>Den enda extrauppgift som jag hann titta lite mer på var slugify eftersom jag behövde den för att kunna presentera mina egenskapade bloggposter. Den var snabb och smidig att
+		lägga till. Det är trevligt när man kan använda andras kodsnuttar så smidigt.</p>
+	</article>
+	<article class="right">
+		<h2>oophp04: PHP PDO och MySQL</h2>
+			<p>Jag gjorde guiden för filmdatabasen och jag tycker det ger många insikter att göra guiderna. Dock tycker jag den krånglas till lite väl mycket
+			ibland och då är det svårt att hänga med. Det är synd att man krånglar till det så för jag tror jag skulle lära mig mer om jag inte behövde spendera en massa tid
+			på att analysera varför man gjort på det sättet när jag tycker det finns ett enklare sätt. Men ja, det tar tid men tillslut så förstår jag det mesta. Även om jag måste tjuvkika 
+			lite i 'facit' för att förstå.</p>
+			<p>Vad det gäller Anax så tycker jag överlag det funkar bra. Jag skulle vilja ha lite mer uppdelat mellan koden i webroot och skapade därför en underkatalog där jag la min databas.
+			Då vet jag att jag har alla koden för filmdatabasen där plus den kod som då är i klasser, den ligger ju kvar under src.</p>
+			<p>Vad det gäller att göra klasser så var det lite lättare denhär gången än i uppgift 2. Det kändes mera logiskt. Dock blev det väldigt mycket parameterskickande mellan 
+			klasserna och sidkontrollerna. Jag hade nog flyttat GET-variablerna om jag hade haft tid att skriva om koden. Både CMovieSearch och CHTMLTables använder ju sig av CDatabase,
+			kanske man skulle löst det på något annat sätt än att skapa upp ett databas objekt i varje sidkontroll. Jag har försökt att inte avvika från grunduppgiften's klassuppbyggnad 
+			när jag gjort uppgiften.</p>
+			<p>Jag hade problem att få alla delar att fungera när jag hade brutit ut kod till klasserna men envist felsökande löste problemen. När jag väl fått allt att fungera lokalt så 
+			stötte jag på nya problem med att flytta hela paketet till studentserverna. Först kunde jag inte logga in, vilket visade sig bero på att jag hade fått ett lösenord med en '(' i
+			vilket inte svaldes rakt upp och ner. Efter att ha läst i forumet så hittade jag ett sätt att felsöka och kunde rätta till felet. Nästa problem var att Login-funktionen inte fungerade,
+			men den funkade klockrent lokalt... Visade sig att databasen när den kom upp på Unix maskinen ville vara case-sensitive vilket min kod inte var, så det var ju lätt avhjälpt när jag 
+			väl hittade problemet. Till sist var det valideringen och det är lite synd att man inte kan validera en lokal version av sin kod, för det blir ett himla skickande fram och tillbaka
+			innan man fått rätt på allt.</p>
+			<p>Nu ska det väl iaf fungera även på studentservern och jag kanske kan få lite tid att titta på extrauppgiften... en dropdown meny låter inte helt fel, så kanske man slipper lite av röran.</p>
+	</article>
+	<article class="right">
 		<h2>oophp03: SQL och databasen MySQL</h2>
 			<p>I och med att jag läst PT så har jag varit i kontakt med databaser tidigare och databasspråket är inget nytt. Jag har mest jobbat med MySQL, 
 			men även stött på andra databaser som tex <a href="http://en.wikipedia.org/wiki/Apache_Cassandra">Apache Cassandra</a>. Jag har inte direkt programmerat med databaser utan mera använt dem för att hämta ut data.</p>
