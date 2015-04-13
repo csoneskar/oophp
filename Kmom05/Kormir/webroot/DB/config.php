@@ -47,20 +47,20 @@ $kormir = array();
  * Settings for the database on local
  *
  */
-$kormir['database']['dsn']      	  = 'mysql:host=localhost;dbname=Movie;';
-$kormir['database']['username']    	  = 'root';
-$kormir['database']['password'] 	  = '';
-$kormir['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");  
+//$kormir['database']['dsn']      	  = 'mysql:host=localhost;dbname=Movie;';
+//$kormir['database']['username']    	  = 'root';
+//$kormir['database']['password'] 	  = '';
+//$kormir['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");  
 
 
 /**
  * Settings for the database on student
  *
  */
-//$kormir['database']['dsn']      	  = 'mysql:host=blu-ray.student.bth.se;dbname=cewe14;';
-//$kormir['database']['username']     = 'cewe14';
-//$kormir['database']['password'] 	  = 'r6I4e2Z(';
-//$kormir['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");  
+$kormir['database']['dsn']      	  = 'mysql:host=blu-ray.student.bth.se;dbname=cewe14;';
+$kormir['database']['username']     = 'cewe14';
+$kormir['database']['password'] 	  = 'r6I4e2Z(';
+$kormir['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");  
  
  
 /**
@@ -105,8 +105,7 @@ $kormir['menu']
 					'me'  => array('text'=>'Me',  'url'=>'../me.php', 'class'=>null),
 					'report'  => array('text'=>'Report',  'url'=>'../report.php', 'class'=>null),
 					'roll' => array('text'=>'Roll dice', 'url'=>'../start.php', 'class'=>null),
-					'movie' => array('text'=>'Movie Database', 'url'=>'../DB/moviedb.php', 'class'=>null),
-					'blog' => array('text'=>'Blog Database', 'url'=>'../blog/view.php', 'class'=>null),
+					'movie' => array('text'=>'Movie Database', 'url'=>'connect.php', 'class'=>null),
 					'source' => array('text'=>'Source', 'url'=>'../source.php', 'class'=>null),
 		),
 	);

@@ -26,7 +26,6 @@ if(isset($_POST['login'])) {
   $password = $_POST['password'];
   $acronym = $_POST['acronym'];
   $user->Login($acronym, $password);
-    echo "Har skickat inlogg";
 }
 
 
@@ -42,7 +41,7 @@ $kormir['main'] = <<<EOD
 			  <legend>Login</legend>
 			  <p><em>Du kan logga in med doe:doe eller admin:admin.</em></p>
 			  <p><label>Användare: </label><input type="text" name="acronym" value="" placeholder="acronym"></p>
-			  <p><label>Lösenord: </label><input type="password" name="password" value"" placeholder="Password"></p>
+			  <p><label>Lösenord: </label><input type="password" name="password" placeholder="Password"></p>
 			  <p><input type='submit' name='login' value='Login'/></p>
 			  <p><a href='movie_logout.php'>Logout</a></p>
 			  <p><a href='moviedb.php'>Visa alla filmer</a></p>

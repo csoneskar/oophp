@@ -56,7 +56,7 @@ if($save) {
 	$db->ExecuteQuery($sql, $params);
 	$db->SaveDebug();
 	$output = 'Informationen sparades.';
-	$newSql = 'INSERT INTO movie2genre VALUES (?, ?)';
+	$newSql = 'INSERT INTO Movie2Genre VALUES (?, ?)';
 	$params = array($id, $kategori);
 	$db->ExecuteQuery($newSql, $params);
 	$db->SaveDebug();

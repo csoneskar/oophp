@@ -1,10 +1,10 @@
-CREATE DATABASE IF NOT EXISTS Movie;
+-- CREATE DATABASE IF NOT EXISTS Movie;
 
-USE Movie;
+-- USE Movie;
 
 -- Use above for lovalhost. Below is for student.
 
--- USE cewe14;
+USE cewe14;
 
 SET NAMES 'utf8';
 
