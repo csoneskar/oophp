@@ -57,7 +57,7 @@ $kormir = array();
  * Settings for the database on student
  *
  */
-define('DB_PASSWORD', '"r6I4e2Z("');
+define('DB_PASSWORD', 'r6I4e2Z(');
 $kormir['database']['dsn']      	  = 'mysql:host=blu-ray.student.bth.se;dbname=cewe14;';
 $kormir['database']['username']     = 'cewe14';
 $kormir['database']['password'] 	  = DB_PASSWORD;
