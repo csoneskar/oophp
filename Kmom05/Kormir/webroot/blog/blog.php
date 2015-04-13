@@ -19,8 +19,8 @@ if(isset($_GET["p"]))
 $vmenu = array (
 	array("id" => "reset", "heading" => "Nollställ DB"),
 	array("id" => "view", "heading" => "Visa alla"),
-	array("id" => "movie_login", "heading" => "Logga in"),
-	array("id" => "movie_logout", "heading" => "Logga ut"),
+	array("id" => "login", "heading" => "Logga in"),
+	array("id" => "logout", "heading" => "Logga ut"),
 	array("id" => "status", "heading" => "Inloggad status"),
 	array("id" => "create", "heading" => "Skapa"),
 	

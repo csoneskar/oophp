@@ -10,7 +10,30 @@ include(__DIR__.'/config.php');
 // Do it and store it all in variables in the Kormir container.
 $kormir['title'] = "Logga ut";
  
-//Header in config file
+
+// Check if the url contains a querystring with a page-part.
+$p = null;
+if(isset($_GET["p"])) 
+{
+	$p = $_GET["p"];
+}
+
+//Telling what links to put in menu
+$vmenu = array (
+	array("id" => "reset", "heading" => "Nollställ DB"),
+	array("id" => "view", "heading" => "Visa alla"),
+	array("id" => "login", "heading" => "Logga in"),
+	array("id" => "logout", "heading" => "Logga ut"),
+	array("id" => "status", "heading" => "Inloggad status"),
+	array("id" => "create", "heading" => "Skapa"),
+	
+);
+
+
+//Creating an object of the aside menu class
+$aside = new CAside($p);
+$menu = $aside->printMenu("Gör ett val", $vmenu); 
+ 
 
 
 $myKormir = $kormir['database'];
@@ -27,7 +50,8 @@ if(isset($_POST['logout'])) {
 
 
 $kormir['main'] = <<<EOD
-<div id="content">       
+<div id="content">   
+	{$menu}
 	<h1>Logga ut</h1>
 	<article class="right">
 		<form method=post>
